@@ -13,7 +13,10 @@
     <ClCompile Include="src\Bullets.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Player.cpp">
+    <ClCompile Include="Location.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Players.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,7 +35,10 @@
     <ClInclude Include="src\Bullets.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Player.h">
+    <ClInclude Include="Location.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Players.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

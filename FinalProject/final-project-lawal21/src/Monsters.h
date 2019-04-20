@@ -1,14 +1,17 @@
 #pragma once
+
+#include "Location.h"
+#include "ofMain.h"
+
 class Monsters
 {
 public:
-	Monsters();
+	ofImage Monster;
+	Monsters(int type);
 	~Monsters();
-	void MoveMonsters();
-	float locationx;
-	float locationy;
+	Location locationTL;
+	Location locationBR;	
 private:
-	void CreateMonster(int type);
 	const int kMonsterHeight = 10;
 	const int kMonsterWidth = 10;
 };

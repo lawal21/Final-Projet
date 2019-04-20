@@ -1,9 +1,9 @@
 #include "ofApp.h"
-#include "Player.h"
+
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-
+	SpawnMonsters();
 }
 
 //--------------------------------------------------------------
@@ -79,5 +79,22 @@ void ofApp::gotMessage(ofMessage msg){
 
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
+
+}
+
+//--------------------HELPER FUNCTIONS--------------------------
+void SpawnMonsters() {
+
+}
+
+void MoveMonsters() {
+
+}
+
+void MovePlayer(char direction) {
+
+}
+
+void PlayerShoot() {
 
 }

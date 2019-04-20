@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "Monsters.h"
 
 class ofApp : public ofBaseApp{
 
@@ -21,6 +22,10 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
+		void SpawnMonsters();
+		void MoveMonsters();
 		void MovePlayer(char direction);
 		void PlayerShoot();
+	private:
+		Monsters monsters[5][10];
 };

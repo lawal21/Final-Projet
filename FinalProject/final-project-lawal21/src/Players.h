@@ -3,17 +3,16 @@
 #include "Location.h"
 #include "ofMain.h"
 
-class Bullets
+class Players
 {
 public:
-	ofImage Bullet;
-	Bullets();
-	~Bullets();
-	bool isEnemy;
+	ofImage Player;
+	Players();
+	~Players();
 	Location locationTL;
 	Location locationBR;
 private:
-	int bulletHeight;
-	int bulletWidth = 1;
+	const int kPlayerHeight = 3;
+	const int kPlayerWidth = 4;
 };
 
