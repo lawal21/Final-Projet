@@ -2,6 +2,7 @@
 
 Players::Players()
 {
+	ofLoadImage(Player, "Player.png");
 }
 
 

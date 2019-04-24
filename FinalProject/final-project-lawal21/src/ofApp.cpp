@@ -84,11 +84,44 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 
 //--------------------HELPER FUNCTIONS--------------------------
 void SpawnMonsters() {
-
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 10; j++) {
+			Monsters monster = Monsters(i);
+			monster.locationBR.SetX(15 * j + 20);
+			monster.locationBR.SetY(12 * i + 20);
+			monster.locationTL.SetY(15 * j + 10);
+			monster.locationTL.SetY(12 * i + 10);
+			monsters[i][j] = monster;
+		}
+	}
 }
 
 void MoveMonsters() {
-
+	bool move_down = false;
+	
+	if (!CheckValidMonsterMove()) {
+		move_down = true;
+		move_right = !move_right;
+	}
+	
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 10; j++) {
+			if (move_down) {
+				monsters[i][j].locationBR.MoveDown;
+				monsters[i][j].locationTL.MoveDown;
+			}
+			else {
+				if (move_right) {
+					monsters[i][j].locationBR.MoveRight;
+					monsters[i][j].locationTL.MoveRight;
+				}
+				else {
+					monsters[i][j].locationBR.MoveLeft;
+					monsters[i][j].locationTL.MoveLeft;
+				}
+			}	
+		}
+	}
 }
 
 void MovePlayer(char direction) {
@@ -96,5 +129,9 @@ void MovePlayer(char direction) {
 }
 
 void PlayerShoot() {
+
+}
+
+bool CheckValidMonsterMove() {
 
 }

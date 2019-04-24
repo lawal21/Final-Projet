@@ -10,13 +10,31 @@ Location::Location(float newX, float newY)
 	y = newY;
 }
 
-void Location::setX(float newX) 
+void Location::SetX(float newX) 
 {
 	x = newX;
 
 }
-void Location::setY(float newY)
+void Location::SetY(float newY)
 {
 	y = newY;
 
 }
+
+void Location::MoveRight()
+{
+	x++;
+}
+void Location::MoveLeft()
+{
+	x--
+};
+void Location::MoveDown()
+{
+	y++;
+}
+void Location::MoveUp()
+{
+	y--
+};
+};

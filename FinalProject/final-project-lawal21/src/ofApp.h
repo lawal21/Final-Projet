@@ -26,6 +26,9 @@ class ofApp : public ofBaseApp{
 		void MoveMonsters();
 		void MovePlayer(char direction);
 		void PlayerShoot();
+		void CheckValidMonsterMove();
+		
 	private:
+		bool move_right = true;
 		Monsters monsters[5][10];
 };
