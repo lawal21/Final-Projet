@@ -15,7 +15,7 @@ Bullets::Bullets()
 		pixels[0] = pixel;
 		pixels[1] = pixel2;
 
-		Bullet.setFromPixels(pixels, bulletWidth, bulletHeight, OF_IMAGE_GRAYSCALE, true);
+		Bullet.setFromPixels(pixels, bulletWidth, bulletHeight, OF_IMAGE_COLOR, true);
 	}
 	else {
 		bulletHeight = 1;
@@ -24,7 +24,7 @@ Bullets::Bullets()
 
 		pixels[0] = pixel;
 
-		Bullet.setFromPixels(pixels, bulletWidth, bulletHeight, OF_IMAGE_GRAYSCALE, true);
+		Bullet.setFromPixels(pixels, bulletWidth, bulletHeight, OF_IMAGE_COLOR, true);
 	}
 }
 
