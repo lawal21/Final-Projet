@@ -1,6 +1,6 @@
 #include "Bullets.h"
 
-Bullets::Bullets()
+Bullets::Bullets(bool isEnemy)
 {
 	if (isEnemy) {
 		ofLoadImage(Bullet, "Enemy Bullet.png");

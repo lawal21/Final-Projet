@@ -16,3 +16,12 @@ create the images in the game. So far, I've created the classes and wrote some h
 header files. Into the next week, my goal is to get some of the basic functions running and create the game
 engine so that I can make it run and then get into the interface and human involvement in shooting and
 dodging and whatnot.
+
+##Week 3
+
+So far, I've set up all of my classes for the most part. I need to add more to bullets so that the image
+moves by itself in the y-axis. I'm a little bit behind, having not gotten my program to run yet, but
+my goal for the next couple of days is to get the monsters to move around the screen and the player to be 
+able to move as well. After that, I will need to just get the shooting to work both the player and enemies,
+as well as letting the bullets kill what they hit by removing the image. With any time left, I can extend
+however I seem fit via animations, interface, and other game features. 

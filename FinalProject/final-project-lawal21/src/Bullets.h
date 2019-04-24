@@ -7,9 +7,8 @@ class Bullets
 {
 public:
 	ofImage Bullet;
-	Bullets();
+	Bullets(bool isEnemy);
 	~Bullets();
-	bool isEnemy;
 	Location locationTL;
 	Location locationBR;
 private:

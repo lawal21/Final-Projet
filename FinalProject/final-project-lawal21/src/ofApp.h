@@ -2,6 +2,8 @@
 
 #include "ofMain.h"
 #include "Monsters.h"
+#include "Players.h"
+#include "Bullets.h"
 
 class ofApp : public ofBaseApp{
 
@@ -22,13 +24,15 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
-		void SpawnMonsters();
-		void MoveMonsters();
-		void MovePlayer(char direction);
-		void PlayerShoot();
-		void CheckValidMonsterMove();
+		void SpawnMonsters(); //Initial spawn of the monsters
+		void MoveMonsters(); //Function used to move the monsters left/right and down at the edge
+		void MovePlayer(char direction); //Moves the player based on user input
+		void PlayerShoot(); //Called when the player shoots
+		void EnemyShoot(); //Called pierodically on the most bottom monster in a column
+		bool CheckValidMonsterMove(bool right); //Helps move monsters know when to move down
 		
 	private:
 		bool move_right = true;
 		Monsters monsters[5][10];
+		Players player = Players();
 };

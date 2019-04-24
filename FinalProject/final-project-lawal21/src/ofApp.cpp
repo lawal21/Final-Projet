@@ -4,6 +4,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 	SpawnMonsters();
+	
 }
 
 //--------------------------------------------------------------
@@ -13,7 +14,9 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-
+	if (ofGetFrameNum() % 30 == 0) {
+		MoveMonsters();
+	}
 }
 
 //--------------------------------------------------------------
@@ -83,7 +86,7 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 }
 
 //--------------------HELPER FUNCTIONS--------------------------
-void SpawnMonsters() {
+void ofApp::SpawnMonsters() {
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 10; j++) {
 			Monsters monster = Monsters(i);
@@ -96,10 +99,10 @@ void SpawnMonsters() {
 	}
 }
 
-void MoveMonsters() {
+void ofApp::MoveMonsters() {
 	bool move_down = false;
 	
-	if (!CheckValidMonsterMove()) {
+	if (!CheckValidMonsterMove(move_right)) {
 		move_down = true;
 		move_right = !move_right;
 	}
@@ -124,14 +127,49 @@ void MoveMonsters() {
 	}
 }
 
-void MovePlayer(char direction) {
-
+void ofApp::MovePlayer(char direction) {
+	if (direction == 'A') {
+		player.locationBR.MoveLeft;
+		player.locationTL.MoveLeft;
+	}
+	else if (direction == 'D') {
+		player.locationBR.MoveRight;
+		player.locationTL.MoveRight;
+	}
 }
 
-void PlayerShoot() {
-
+void ofApp::PlayerShoot() {
+	Bullets	bullet = Bullets(false);
+	
+	bullet.locationBR = player.locationTL;
+	bullet.locationTL = player.locationTL;
+	
+	bullet.locationBR.MoveUp;
+	bullet.locationBR.MoveRight;
+	bullet.locationTL.MoveUp;
+	bullet.locationTL.MoveRight;
 }
 
-bool CheckValidMonsterMove() {
+void ofApp::EnemyShoot() {
+	Bullets bullet = Bullets(true);
+}
 
+bool ofApp::CheckValidMonsterMove(bool right) {
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 10; j++) {
+			if (monsters[i][j].isAlive) {
+				if (right) {
+					if (monsters[i][j].locationBR.x + 1 > 320) {
+						return false;
+					}
+				}
+				else {
+					if (monsters[i][j].locationBR.x - 1 < 0) {
+						return false;
+					}
+				}
+			}
+		}
+	}
+	return true;
 }
