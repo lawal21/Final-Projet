@@ -2,8 +2,8 @@
 class Location
 {
 public:
-	float x;
-	float y;
+	float GetX();
+	float GetY();
 	Location();
 	Location(float newX, float newY);
 	void SetX(float newX);
@@ -12,5 +12,8 @@ public:
 	void MoveLeft();
 	void MoveDown();
 	void MoveUp();
+private:
+	float x;
+	float y;
 };
 

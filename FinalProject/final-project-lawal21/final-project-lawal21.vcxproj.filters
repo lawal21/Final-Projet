@@ -13,16 +13,22 @@
     <ClCompile Include="src\Bullets.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="Location.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\Players.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Location.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="test\Test.cpp">
+      <Filter>test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
       <UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test">
+      <UniqueIdentifier>{0dd9baae-0b84-4747-a48d-8ff731f006e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -35,11 +41,14 @@
     <ClInclude Include="src\Bullets.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="Location.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\Players.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Location.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="test\Catch.h">
+      <Filter>test</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

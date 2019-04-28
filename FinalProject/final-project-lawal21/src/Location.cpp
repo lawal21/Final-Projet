@@ -25,16 +25,25 @@ void Location::MoveRight()
 {
 	x++;
 }
+
 void Location::MoveLeft()
 {
-	x--
-};
+	x--;
+}
+
 void Location::MoveDown()
 {
 	y++;
 }
 void Location::MoveUp()
 {
-	y--
-};
-};
+	y--;
+}
+
+float Location::GetX() {
+	return x;
+}
+
+float Location::GetY() {
+	return y;
+}

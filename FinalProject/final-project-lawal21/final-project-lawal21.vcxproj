@@ -180,19 +180,21 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Location.cpp" />
     <ClCompile Include="src\Bullets.cpp" />
+    <ClCompile Include="src\Location.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Monsters.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
     <ClCompile Include="src\Players.cpp" />
+    <ClCompile Include="test\Test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Location.h" />
     <ClInclude Include="src\Bullets.h" />
+    <ClInclude Include="src\Location.h" />
     <ClInclude Include="src\Monsters.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="src\Players.h" />
+    <ClInclude Include="test\Catch.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">

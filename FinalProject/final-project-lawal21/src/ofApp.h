@@ -14,7 +14,7 @@ class ofApp : public ofBaseApp{
 
 		void keyPressed(int key);
 		void keyReleased(int key);
-		void mouseMoved(int x, int y );
+		void mouseMoved(int x, int y);
 		void mouseDragged(int x, int y, int button);
 		void mousePressed(int x, int y, int button);
 		void mouseReleased(int x, int y, int button);
@@ -31,7 +31,6 @@ class ofApp : public ofBaseApp{
 		void EnemyShoot(); //Called pierodically on the most bottom monster in a column
 		bool CheckValidMonsterMove(bool right); //Helps move monsters know when to move down
 		
-	private:
 		bool move_right = true;
 		Monsters monsters[5][10];
 		Players player = Players();
