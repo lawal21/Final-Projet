@@ -22,15 +22,20 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
 	
+	if (key == OF_KEY_F12) {
+		ofToggleFullscreen();
+		return;
+	}
+
 	int upper_key = toupper(key);
 
-	if (upper_key == 'A') {
+	if (upper_key == 'A' || key == OF_KEY_LEFT) {
 		MovePlayer('A');
 	}
-	else if (upper_key == 'D') {
+	else if (upper_key == 'D' || key == OF_KEY_RIGHT) {
 		MovePlayer('D');
 	}
-	else if (upper_key == 'W') {
+	else if (upper_key == 'W' || key == OF_KEY_UP) {
 		PlayerShoot();
 	}
 }
@@ -89,10 +94,10 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 void ofApp::SpawnMonsters() {
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 10; j++) {
-			monsters[i][j].locationBR.SetX(15 * j + 20);
-			monsters[i][j].locationBR.SetY(12 * i + 20);
-			monsters[i][j].locationTL.SetY(15 * j + 10);
-			monsters[i][j].locationTL.SetY(12 * i + 10);
+			monsters[i][j].LocationBottomRight.SetX(15 * j + 20);
+			monsters[i][j].LocationBottomRight.SetY(12 * i + 20);
+			monsters[i][j].LocationTopLeft.SetY(15 * j + 10);
+			monsters[i][j].LocationTopLeft.SetY(12 * i + 10);
 		}
 	}
 }
@@ -108,17 +113,17 @@ void ofApp::MoveMonsters() {
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 10; j++) {
 			if (move_down) {
-				monsters[i][j].locationBR.MoveDown();
-				monsters[i][j].locationTL.MoveDown();
+				monsters[i][j].LocationBottomRight.MoveDown();
+				monsters[i][j].LocationTopLeft.MoveDown();
 			}
 			else {
 				if (move_right) {
-					monsters[i][j].locationBR.MoveRight();
-					monsters[i][j].locationTL.MoveRight();
+					monsters[i][j].LocationBottomRight.MoveRight();
+					monsters[i][j].LocationTopLeft.MoveRight();
 				}
 				else {
-					monsters[i][j].locationBR.MoveLeft();
-					monsters[i][j].locationTL.MoveLeft();
+					monsters[i][j].LocationBottomRight.MoveLeft();
+					monsters[i][j].LocationTopLeft.MoveLeft();
 				}
 			}	
 		}
@@ -127,40 +132,40 @@ void ofApp::MoveMonsters() {
 
 void ofApp::MovePlayer(char direction) {
 	if (direction == 'A') {
-		player.locationBR.MoveLeft();
-		player.locationTL.MoveLeft();
+		player.LocationBottomRight.MoveLeft();
+		player.LocationTopLeft.MoveLeft();
 	}
 	else if (direction == 'D') {
-		player.locationBR.MoveRight();
-		player.locationTL.MoveRight();
+		player.LocationBottomRight.MoveRight();
+		player.LocationTopLeft.MoveRight();
 	}
 }
 
 void ofApp::PlayerShoot() {
 	Bullets	bullet = Bullets(false);
 	
-	bullet.locationBR = player.locationTL;
-	bullet.locationTL = player.locationTL;
+	bullet.LocationBottomRight = player.LocationTopLeft;
+	bullet.LocationTopLeft = player.LocationTopLeft;
 	
-	bullet.locationBR.MoveUp();
-	bullet.locationBR.MoveRight();
-	bullet.locationTL.MoveUp();
-	bullet.locationTL.MoveRight();
+	bullet.LocationBottomRight.MoveUp();
+	bullet.LocationBottomRight.MoveRight();
+	bullet.LocationTopLeft.MoveUp();
+	bullet.LocationTopLeft.MoveRight();
 }
 
 void ofApp::EnemyShoot(Monsters monster) {
 	Bullets bullet = Bullets(true);
 
-	bullet.locationBR = monster.locationBR;
-	bullet.locationTL = monster.locationBR;
+	bullet.LocationBottomRight = monster.LocationBottomRight;
+	bullet.LocationTopLeft = monster.LocationBottomRight;
 
 	for (int i = 0; i < 5; i++) {
-		bullet.locationBR.MoveDown();
-		bullet.locationTL.MoveDown();
+		bullet.LocationBottomRight.MoveDown();
+		bullet.LocationTopLeft.MoveDown();
 	}
 	
-	bullet.locationBR.MoveLeft();
-	bullet.locationTL.MoveLeft();
+	bullet.LocationBottomRight.MoveLeft();
+	bullet.LocationTopLeft.MoveLeft();
 }
 
 bool ofApp::CheckValidMonsterMove(bool right) {
@@ -168,12 +173,12 @@ bool ofApp::CheckValidMonsterMove(bool right) {
 		for (int j = 0; j < 10; j++) {
 			if (monsters[i][j].isAlive) {
 				if (right) {
-					if (monsters[i][j].locationBR.GetX() + 1 > screen_size - 1) {
+					if (monsters[i][j].LocationBottomRight.GetX() + 1 > screen_size - 1) {
 						return false;
 					}
 				}
 				else {
-					if (monsters[i][j].locationBR.GetX() - 1 < 0) {
+					if (monsters[i][j].LocationBottomRight.GetX() - 1 < 0) {
 						return false;
 					}
 				}

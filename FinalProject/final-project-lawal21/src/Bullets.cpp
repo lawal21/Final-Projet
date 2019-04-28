@@ -4,11 +4,11 @@ Bullets::Bullets(bool isEnemy)
 {
 	if (isEnemy) {
 		ofLoadImage(Bullet, "Enemy Bullet.png");
-		bulletHeight = 2;
+		bullet_height = 2;
 	}
 	else {
 		ofLoadImage(Bullet, "Player Bullet.png");
-		bulletHeight = 1;
+		bullet_height = 1;
 	}
 }
 
@@ -18,18 +18,19 @@ Bullets::~Bullets()
 }
 
 bool Bullets::MonsterCollision(Monsters monster) {
-	if (PixelWithinBounds(locationTL, monster.locationTL, monster.locationBR) ||
-		PixelWithinBounds(locationBR, monster.locationTL, monster.locationBR)) {
+	if (PixelWithinBounds(LocationTopLeft, monster.LocationTopLeft, monster.LocationBottomRight) ||
+		PixelWithinBounds(LocationBottomRight, monster.LocationTopLeft, monster.LocationBottomRight)) {
 		return true;
 	}
 	return false;
 }
 
 bool Bullets::PlayerCollision(Players player) {
-	if (PixelWithinBounds(locationTL, player.locationTL, player.locationBR)) {
+	if (PixelWithinBounds(LocationTopLeft, player.LocationTopLeft, player.LocationBottomRight)) {
 		return true;
 	}
 	return false;
+	
 }
 
 bool Bullets::PixelWithinBounds(Location pixel, Location tlBound, Location brBound) {

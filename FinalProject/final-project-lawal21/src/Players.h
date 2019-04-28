@@ -9,8 +9,8 @@ public:
 	ofImage Player;
 	Players();
 	~Players();
-	Location locationTL;
-	Location locationBR;
+	Location LocationTopLeft;
+	Location LocationBottomRight;
 private:
 	const int kPlayerHeight = 3;
 	const int kPlayerWidth = 4;

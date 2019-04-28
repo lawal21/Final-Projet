@@ -9,8 +9,8 @@ public:
 	ofImage Monster;
 	Monsters(int type);
 	~Monsters();
-	Location locationTL;
-	Location locationBR;
+	Location LocationTopLeft;
+	Location LocationBottomRight;
 	bool isAlive = true;
 private:
 	const int kMonsterHeight = 10;
