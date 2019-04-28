@@ -148,8 +148,19 @@ void ofApp::PlayerShoot() {
 	bullet.locationTL.MoveRight();
 }
 
-void ofApp::EnemyShoot() {
+void ofApp::EnemyShoot(Monsters monster) {
 	Bullets bullet = Bullets(true);
+
+	bullet.locationBR = monster.locationBR;
+	bullet.locationTL = monster.locationBR;
+
+	for (int i = 0; i < 5; i++) {
+		bullet.locationBR.MoveDown();
+		bullet.locationTL.MoveDown();
+	}
+	
+	bullet.locationBR.MoveLeft();
+	bullet.locationTL.MoveLeft();
 }
 
 bool ofApp::CheckValidMonsterMove(bool right) {
@@ -157,12 +168,12 @@ bool ofApp::CheckValidMonsterMove(bool right) {
 		for (int j = 0; j < 10; j++) {
 			if (monsters[i][j].isAlive) {
 				if (right) {
-					if (monsters[i][j].locationBR.x + 1 > 320) {
+					if (monsters[i][j].locationBR.GetX() + 1 > screen_size - 1) {
 						return false;
 					}
 				}
 				else {
-					if (monsters[i][j].locationBR.x - 1 < 0) {
+					if (monsters[i][j].locationBR.GetX() - 1 < 0) {
 						return false;
 					}
 				}

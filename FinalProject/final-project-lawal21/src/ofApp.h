@@ -28,10 +28,11 @@ class ofApp : public ofBaseApp{
 		void MoveMonsters(); //Function used to move the monsters left/right and down at the edge
 		void MovePlayer(char direction); //Moves the player based on user input
 		void PlayerShoot(); //Called when the player shoots
-		void EnemyShoot(); //Called pierodically on the most bottom monster in a column
+		void EnemyShoot(Monsters monster); //Called pierodically on the most bottom monster in a column
 		bool CheckValidMonsterMove(bool right); //Helps move monsters know when to move down
 		
 		bool move_right = true;
 		Monsters monsters[5][10];
 		Players player = Players();
+		int screen_size = 256;
 };

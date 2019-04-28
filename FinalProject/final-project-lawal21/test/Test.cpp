@@ -6,13 +6,13 @@ ofApp app;
 
 
 TEST_CASE("SpawnMonsters") {
-	REQUIRE();
+	//REQUIRE();
 }
 
 TEST_CASE("MoveMonsters") {
 	app.SpawnMonsters();
 
-	REQUIRE();
+	//REQUIRE();
 }
 
 TEST_CASE("MovePlayerLeft") {
@@ -40,9 +40,17 @@ TEST_CASE("MovePlayerRight") {
 }
 
 TEST_CASE("CheckValidMonsterMoveSimple") {
-	REQUIRE();
+	//REQUIRE();
 }
 
 TEST_CASE("CheckValidMonsterMoveHard") {
-	REQUIRE();
+	//REQUIRE();
+}
+
+TEST_CASE("LocationInBounds") {
+	
+}
+
+TEST_CASE("LocationOutOfBounds") {
+
 }
