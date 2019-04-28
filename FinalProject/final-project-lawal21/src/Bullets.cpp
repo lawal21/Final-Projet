@@ -12,10 +12,6 @@ Bullets::Bullets(bool isEnemy)
 	}
 }
 
-Bullets::~Bullets()
-{
-
-}
 
 bool Bullets::MonsterCollision(Monsters monster) {
 	if (PixelWithinBounds(LocationTopLeft, monster.LocationTopLeft, monster.LocationBottomRight) ||

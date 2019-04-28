@@ -24,4 +24,6 @@ Monsters::Monsters(int type)
 
 Monsters::~Monsters()
 {
+	isAlive = false;
+	ofLoadImage(Monster, "Dead Monster.png");
 }

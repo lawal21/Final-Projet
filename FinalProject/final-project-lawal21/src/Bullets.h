@@ -10,7 +10,6 @@ class Bullets
 public:
 	ofImage Bullet;
 	Bullets(bool isEnemy);
-	~Bullets();
 	Location LocationTopLeft;
 	Location LocationBottomRight;
 private:
