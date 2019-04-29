@@ -9,9 +9,10 @@ class Bullets
 {
 public:
 	ofImage Bullet;
-	Bullets(bool isEnemy);
+	Bullets(bool is_enemy);
 	Location LocationTopLeft;
 	Location LocationBottomRight;
+	bool enemy;
 private:
 	bool MonsterCollision(Monsters monster);
 	bool PlayerCollision(Players player);

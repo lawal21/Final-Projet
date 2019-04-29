@@ -4,6 +4,7 @@
 #include "Monsters.h"
 #include "Players.h"
 #include "Bullets.h"
+#include <vector>
 
 class ofApp : public ofBaseApp{
 
@@ -23,16 +24,23 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-		
+
+private:
 		void SpawnMonsters(); //Initial spawn of the monsters
+		void SpawnPlayer();
 		void MoveMonsters(); //Function used to move the monsters left/right and down at the edge
 		void MovePlayer(char direction); //Moves the player based on user input
 		void PlayerShoot(); //Called when the player shoots
 		void EnemyShoot(Monsters monster); //Called pierodically on the most bottom monster in a column
 		bool CheckValidMonsterMove(bool right); //Helps move monsters know when to move down
+
+		void DrawMonsters();
+		void DrawPlayer();
+		void DrawBullets();
 		
 		bool move_right = true;
 		Monsters monsters[5][10];
 		Players player = Players();
+		vector<Bullets> bullets;
 		int screen_size = 256;
 };

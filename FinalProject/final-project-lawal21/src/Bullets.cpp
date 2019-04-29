@@ -1,14 +1,16 @@
 #include "Bullets.h"
 
-Bullets::Bullets(bool isEnemy)
+Bullets::Bullets(bool is_enemy)
 {
-	if (isEnemy) {
+	if (is_enemy) {
 		ofLoadImage(Bullet, "Enemy Bullet.png");
 		bullet_height = 2;
+		enemy = is_enemy;
 	}
 	else {
 		ofLoadImage(Bullet, "Player Bullet.png");
 		bullet_height = 1;
+		enemy = is_enemy;
 	}
 }
 
