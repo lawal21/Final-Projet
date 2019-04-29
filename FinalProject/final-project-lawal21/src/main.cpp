@@ -3,7 +3,7 @@
 
 //========================================================================
 int main( ){
-	ofSetupOpenGL(1024,768,OF_WINDOW);			// <-------- setup the GL context
+	ofSetupOpenGL(1028,768,OF_WINDOW);			// <-------- setup the GL context
 	ofSetFrameRate(30);
 	ofSetEscapeQuitsApp(true);
 

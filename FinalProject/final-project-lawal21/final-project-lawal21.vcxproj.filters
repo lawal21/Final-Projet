@@ -19,9 +19,6 @@
     <ClCompile Include="src\Location.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="test\Test.cpp">
-      <Filter>test</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -46,9 +43,6 @@
     </ClInclude>
     <ClInclude Include="src\Location.h">
       <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="test\Catch.h">
-      <Filter>test</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

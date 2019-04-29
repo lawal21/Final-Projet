@@ -25,7 +25,11 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
-private:
+		int screen_size_x = 1028;
+		int screen_size_y = 768;
+		int frame_rate = 30;
+
+	//private:
 		void SpawnMonsters(); //Initial spawn of the monsters
 		void SpawnPlayer();
 		void MoveMonsters(); //Function used to move the monsters left/right and down at the edge
@@ -39,8 +43,8 @@ private:
 		void DrawBullets();
 		
 		bool move_right = true;
+
 		Monsters monsters[5][10];
 		Players player = Players();
 		vector<Bullets> bullets;
-		int screen_size = 256;
 };

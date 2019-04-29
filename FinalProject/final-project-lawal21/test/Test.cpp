@@ -4,7 +4,6 @@
 
 ofApp app;
 
-
 TEST_CASE("SpawnMonsters") {
 	//REQUIRE();
 }
@@ -21,10 +20,10 @@ TEST_CASE("MovePlayerLeft") {
 	app.player.LocationTopLeft.SetX(2);
 	app.player.LocationTopLeft.SetY(2);
 	app.MovePlayer('A');
-	REQUIRE(app.player.LocationBottomRight.GetX == 3);
-	REQUIRE(app.player.LocationBottomRight.GetY == 4);
-	REQUIRE(app.player.LocationTopLeft.GetX == 1);
-	REQUIRE(app.player.LocationTopLeft.GetY == 2);
+	REQUIRE(app.player.LocationBottomRight.GetX() == 3);
+	REQUIRE(app.player.LocationBottomRight.GetY() == 4);
+	REQUIRE(app.player.LocationTopLeft.GetX() == 1);
+	REQUIRE(app.player.LocationTopLeft.GetY() == 2);
 }
 
 TEST_CASE("MovePlayerRight") {
@@ -33,10 +32,10 @@ TEST_CASE("MovePlayerRight") {
 	app.player.LocationTopLeft.SetX(2);
 	app.player.LocationTopLeft.SetY(2);
 	app.MovePlayer('D');
-	REQUIRE(app.player.LocationBottomRight.GetX == 5);
-	REQUIRE(app.player.LocationBottomRight.GetY == 4);
-	REQUIRE(app.player.LocationTopLeft.GetX == 3);
-	REQUIRE(app.player.LocationTopLeft.GetY == 1);
+	REQUIRE(app.player.LocationBottomRight.GetX() == 5);
+	REQUIRE(app.player.LocationBottomRight.GetY() == 4);
+	REQUIRE(app.player.LocationTopLeft.GetX() == 3);
+	REQUIRE(app.player.LocationTopLeft.GetY() == 1);
 }
 
 TEST_CASE("CheckValidMonsterMoveSimple") {

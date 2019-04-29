@@ -4,14 +4,17 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 	SpawnMonsters();
-	
+	SpawnPlayer();
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	if (ofGetFrameNum() % 30 == 0) {
+	//Moving monsters each second
+	if (ofGetFrameNum() % frame_rate == 0) {
 		MoveMonsters();
 	}
+	
+	//Moving bullets
 	for (int i = 0; i < bullets.size(); i++) {
 		if (bullets.at(i).enemy) {
 			bullets.at(i).LocationBottomRight.MoveDown();
@@ -22,7 +25,32 @@ void ofApp::update(){
 			bullets.at(i).LocationTopLeft.MoveUp();
 		}	
 	}
-	//Check for monster collision
+	
+	//Checking for bullet collision
+	vector<int> bullets_to_remove;
+	for (int i = 0; i < bullets.size(); i++) {
+		//Indexing all bullets that have collided
+		if (bullets.at(i).enemy) {
+			if (bullets.at(i).PlayerCollision(player)) {
+				bullets_to_remove.push_back(i);
+			}
+		}
+		else {
+			for (int i = 0; i < 5; i++) {
+				for (int j = 0; j < 10; j++) {
+					if (bullets.at(i).MonsterCollision(monsters[i][j])) {
+						bullets_to_remove.push_back(i);
+						break;
+					}
+				}
+			}
+		}
+		//Removing these bullets so they are not drawn
+		for (int i = 0; i < bullets_to_remove.size(); i++) {
+			bullets.erase(bullets.begin() + i - 1);
+		}
+	}
+
 }
 
 //--------------------------------------------------------------
@@ -34,11 +62,6 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-	
-	if (key == OF_KEY_F12) {
-		ofToggleFullscreen();
-		return;
-	}
 
 	int upper_key = toupper(key);
 
@@ -48,7 +71,7 @@ void ofApp::keyPressed(int key){
 	else if (upper_key == 'D' || key == OF_KEY_RIGHT) {
 		MovePlayer('D');
 	}
-	else if (upper_key == 'W' || key == OF_KEY_UP) {
+	else if (upper_key == 'W' || key == OF_KEY_UP || key == OF_KEY_RETURN) {
 		PlayerShoot();
 	}
 }
@@ -103,14 +126,16 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 
 }
 
-//--------------------HELPER FUNCTIONS--------------------------
+//-----------------------HELPER FUNCTIONS-----------------------
+
+//--------------------------------------------------------------
 void ofApp::SpawnMonsters() {
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 10; j++) {
-			float x = 15 * j + 10;
-			float y = 12 * i + 10;
-			monsters[i][j].LocationBottomRight.SetX(x + 10);
-			monsters[i][j].LocationBottomRight.SetY(y + 10);
+			float x = 45 * j + 40;
+			float y = 42 * i + 40;
+			monsters[i][j].LocationBottomRight.SetX(x + 40);
+			monsters[i][j].LocationBottomRight.SetY(y + 40);
 			monsters[i][j].LocationTopLeft.SetX(x);
 			monsters[i][j].LocationTopLeft.SetY(y);
 			monsters[i][j].Monster.draw(x, y);
@@ -119,13 +144,14 @@ void ofApp::SpawnMonsters() {
 }
 
 void ofApp::SpawnPlayer() {
-	player.LocationBottomRight.SetX(screen_size / 2 + 2);
-	player.LocationBottomRight.SetY(screen_size - 2);
-	player.LocationTopLeft.SetX(screen_size / 2 - 2);
-	player.LocationTopLeft.SetY(screen_size - 5);
+	player.LocationBottomRight.SetX(screen_size_x / 2 + 2);
+	player.LocationBottomRight.SetY(screen_size_y - 2);
+	player.LocationTopLeft.SetX(screen_size_x / 2 - 2);
+	player.LocationTopLeft.SetY(screen_size_y - 5);
 	DrawPlayer();
 }
 
+//--------------------------------------------------------------
 void ofApp::DrawMonsters() {
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 10; j++) {
@@ -144,6 +170,7 @@ void ofApp::DrawBullets() {
 	}
 }
 
+//--------------------------------------------------------------
 void ofApp::MoveMonsters() {
 	bool move_down = false;
 	
@@ -158,15 +185,13 @@ void ofApp::MoveMonsters() {
 				monsters[i][j].LocationBottomRight.MoveDown();
 				monsters[i][j].LocationTopLeft.MoveDown();
 			}
+			else if (move_right) {
+				monsters[i][j].LocationBottomRight.MoveRight();
+				monsters[i][j].LocationTopLeft.MoveRight();
+			}
 			else {
-				if (move_right) {
-					monsters[i][j].LocationBottomRight.MoveRight();
-					monsters[i][j].LocationTopLeft.MoveRight();
-				}
-				else {
-					monsters[i][j].LocationBottomRight.MoveLeft();
-					monsters[i][j].LocationTopLeft.MoveLeft();
-				}
+				monsters[i][j].LocationBottomRight.MoveLeft();
+				monsters[i][j].LocationTopLeft.MoveLeft();
 			}	
 		}
 	}
@@ -183,6 +208,7 @@ void ofApp::MovePlayer(char direction) {
 	}
 }
 
+//--------------------------------------------------------------
 void ofApp::PlayerShoot() {
 	Bullets	bullet = Bullets(false);
 	
@@ -214,12 +240,13 @@ void ofApp::EnemyShoot(Monsters monster) {
 	bullets.push_back(bullet);
 }
 
+//--------------------------------------------------------------
 bool ofApp::CheckValidMonsterMove(bool right) {
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 10; j++) {
 			if (monsters[i][j].isAlive) {
 				if (right) {
-					if (monsters[i][j].LocationBottomRight.GetX() + 1 > screen_size - 1) {
+					if (monsters[i][j].LocationBottomRight.GetX() + 1 > screen_size_x - 1) {
 						return false;
 					}
 				}

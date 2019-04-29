@@ -1,5 +1,9 @@
 #include "Monsters.h"
 
+Monsters::Monsters() {
+
+}
+
 Monsters::Monsters(int type)
 {
 	if (type == 1) {
@@ -17,10 +21,8 @@ Monsters::Monsters(int type)
 	else if (type == 5) {
 		ofLoadImage(Monster, "Monster 5.png");
 	}
+	Monster.resize(40, 40);
 }
-
-
-
 
 Monsters::~Monsters()
 {
