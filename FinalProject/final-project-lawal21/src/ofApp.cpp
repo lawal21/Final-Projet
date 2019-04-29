@@ -3,6 +3,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+	ofBackground(0, 0, 0);
 	SpawnMonsters();
 	SpawnPlayer();
 }
