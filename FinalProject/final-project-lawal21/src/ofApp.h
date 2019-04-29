@@ -30,6 +30,7 @@ class ofApp : public ofBaseApp{
 		int frame_rate = 30;
 		int initial_monster_offset = 20;
 
+
 	//private:
 		void SpawnMonsters(); //Initial spawn of the monsters
 		void SpawnPlayer();
@@ -44,6 +45,10 @@ class ofApp : public ofBaseApp{
 		void DrawBullets();
 		
 		bool move_right = true;
+
+		int monster_spacing_x = 20;
+		int monster_spacing_y = 8;
+		int player_shoot_timer = 30;
 
 		Monsters monsters[5][10];
 		Players player = Players();
