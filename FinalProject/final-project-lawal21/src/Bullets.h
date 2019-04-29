@@ -21,6 +21,6 @@ public:
 
 private:
 	int bullet_height;
-	int bullet_width = 4;
+	int bullet_width = 8;
 };
 

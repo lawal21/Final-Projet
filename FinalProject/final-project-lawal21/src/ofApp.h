@@ -28,6 +28,7 @@ class ofApp : public ofBaseApp{
 		int screen_size_x = 1028;
 		int screen_size_y = 768;
 		int frame_rate = 30;
+		int initial_monster_offset = 20;
 
 	//private:
 		void SpawnMonsters(); //Initial spawn of the monsters

@@ -40,6 +40,33 @@ void Location::MoveUp()
 	y--;
 }
 
+void Location::MoveRight(int amount)
+{
+	for (int i = 0; i < amount; i++) {
+		x++;
+	}
+}
+
+void Location::MoveLeft(int amount)
+{
+	for (int i = 0; i < amount; i++) {
+		x--;
+	}
+}
+
+void Location::MoveDown(int amount)
+{
+	for (int i = 0; i < amount; i++) {
+		y++;
+	}
+}
+void Location::MoveUp(int amount)
+{
+	for (int i = 0; i < amount; i++) {
+		y--;
+	}
+}
+
 float Location::GetX() {
 	return x;
 }

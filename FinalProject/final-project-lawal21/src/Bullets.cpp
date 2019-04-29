@@ -8,16 +8,15 @@ Bullets::Bullets(bool is_enemy)
 {
 	if (is_enemy) {
 		ofLoadImage(Bullet, "Enemy Bullet.png");
-		bullet_height = 2;
+		bullet_height = 16;
 		enemy = is_enemy;
-		Bullet.resize(4, 8);
 	}
 	else {
 		ofLoadImage(Bullet, "Player Bullet.png");
-		bullet_height = 1;
+		bullet_height = 8;
 		enemy = is_enemy;
-		Bullet.resize(4, 4);
 	}
+	Bullet.resize(bullet_width, bullet_height);
 }
 
 

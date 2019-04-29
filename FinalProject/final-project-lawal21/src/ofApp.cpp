@@ -132,10 +132,11 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 void ofApp::SpawnMonsters() {
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 10; j++) {
-			float x = 45 * j + 40;
-			float y = 42 * i + 40;
-			monsters[i][j].LocationBottomRight.SetX(x + 40);
-			monsters[i][j].LocationBottomRight.SetY(y + 40);
+			monsters[i][j] = Monsters(i);
+			float x = (80 + 5) * j + initial_monster_offset;
+			float y = (80 + 2) * i + initial_monster_offset;
+			monsters[i][j].LocationBottomRight.SetX(x + 80);
+			monsters[i][j].LocationBottomRight.SetY(y + 80);
 			monsters[i][j].LocationTopLeft.SetX(x);
 			monsters[i][j].LocationTopLeft.SetY(y);
 			monsters[i][j].Monster.draw(x, y);
@@ -145,9 +146,9 @@ void ofApp::SpawnMonsters() {
 
 void ofApp::SpawnPlayer() {
 	player.LocationBottomRight.SetX(screen_size_x / 2 + 2);
-	player.LocationBottomRight.SetY(screen_size_y - 2);
+	player.LocationBottomRight.SetY(screen_size_y - 22);
 	player.LocationTopLeft.SetX(screen_size_x / 2 - 2);
-	player.LocationTopLeft.SetY(screen_size_y - 5);
+	player.LocationTopLeft.SetY(screen_size_y - 25);
 	DrawPlayer();
 }
 
@@ -155,13 +156,17 @@ void ofApp::SpawnPlayer() {
 void ofApp::DrawMonsters() {
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 10; j++) {
-			monsters[i][j].Monster.draw(monsters[i][j].LocationTopLeft.GetX(), monsters[i][j].LocationTopLeft.GetY());
+			if (monsters[i][j].Monster.isAllocated()) {
+				monsters[i][j].Monster.draw(monsters[i][j].LocationTopLeft.GetX(), monsters[i][j].LocationTopLeft.GetY());
+			}
 		}
 	}
 }
 
 void ofApp::DrawPlayer() {
-	player.Player.draw(player.LocationTopLeft.GetX(), player.LocationTopLeft.GetY());
+	if (player.Player.isAllocated()) {
+		player.Player.draw(player.LocationTopLeft.GetX(), player.LocationTopLeft.GetY());
+	}
 }
 
 void ofApp::DrawBullets() {
@@ -199,12 +204,12 @@ void ofApp::MoveMonsters() {
 
 void ofApp::MovePlayer(char direction) {
 	if (direction == 'A') {
-		player.LocationBottomRight.MoveLeft();
-		player.LocationTopLeft.MoveLeft();
+		player.LocationBottomRight.MoveLeft(10);
+		player.LocationTopLeft.MoveLeft(10);
 	}
 	else if (direction == 'D') {
-		player.LocationBottomRight.MoveRight();
-		player.LocationTopLeft.MoveRight();
+		player.LocationBottomRight.MoveRight(10);
+		player.LocationTopLeft.MoveRight(10);
 	}
 }
 
@@ -229,10 +234,8 @@ void ofApp::EnemyShoot(Monsters monster) {
 	bullet.LocationBottomRight = monster.LocationBottomRight;
 	bullet.LocationTopLeft = monster.LocationBottomRight;
 
-	for (int i = 0; i < 5; i++) {
-		bullet.LocationBottomRight.MoveLeft();
-		bullet.LocationTopLeft.MoveLeft();
-	}
+	bullet.LocationBottomRight.MoveLeft(5);
+	bullet.LocationTopLeft.MoveLeft(5);
 	
 	bullet.LocationBottomRight.MoveDown();
 	bullet.LocationTopLeft.MoveDown();

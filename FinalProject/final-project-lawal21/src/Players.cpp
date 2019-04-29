@@ -3,7 +3,7 @@
 Players::Players()
 {
 	ofLoadImage(Player, "Player.png");
-	Player.resize(16, 4);
+	Player.resize(kPlayerWidth, kPlayerHeight);
 }
 
 

@@ -13,8 +13,9 @@ public:
 	Location LocationTopLeft;
 	Location LocationBottomRight;
 	bool isAlive = true;
+	Monsters& operator=(const Monsters& other);
 private:
-	const int kMonsterHeight = 40;
-	const int kMonsterWidth = 40;
+	const int kMonsterHeight = 80;
+	const int kMonsterWidth = 80;
 };
 

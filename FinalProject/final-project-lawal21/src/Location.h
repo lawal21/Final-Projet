@@ -12,6 +12,10 @@ public:
 	void MoveLeft();
 	void MoveDown();
 	void MoveUp();
+	void MoveRight(int amount);
+	void MoveLeft(int amount);
+	void MoveDown(int amount);
+	void MoveUp(int amount);
 private:
 	float x;
 	float y;

@@ -12,7 +12,7 @@ public:
 	Location LocationTopLeft;
 	Location LocationBottomRight;
 private:
-	const int kPlayerHeight = 12;
-	const int kPlayerWidth = 16;
+	const int kPlayerHeight = 24;
+	const int kPlayerWidth = 32;
 };
 

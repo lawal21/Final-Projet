@@ -21,11 +21,16 @@ Monsters::Monsters(int type)
 	else if (type == 5) {
 		ofLoadImage(Monster, "Monster 5.png");
 	}
-	Monster.resize(40, 40);
+	Monster.resize(kMonsterWidth, kMonsterHeight);
 }
 
 Monsters::~Monsters()
 {
 	isAlive = false;
 	ofLoadImage(Monster, "Dead Monster.png");
+}
+
+Monsters& Monsters::operator=(const Monsters& other) {
+	Monster = other.Monster;
+	return *this;
 }
