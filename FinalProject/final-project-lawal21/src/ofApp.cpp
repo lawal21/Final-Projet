@@ -18,6 +18,35 @@ void ofApp::update(){
 			bullets.clear();
 			return;
 		}
+
+		//Checking for bullet collision
+		for (int i = 0; i < bullets.size(); i++) {
+			if (bullets.at(i).enemy) {
+				if (!bullets.at(i).isAlive) {
+					continue;
+				}
+				if (Collision(bullets.at(i).LocationTopLeft, bullets.at(i).LocationBottomRight,
+					player.LocationTopLeft, player.LocationBottomRight)) {
+					player.isAlive = false;
+					current_state = FINISHED;
+					printf("Collision\n");
+				}
+			}
+			else {
+				for (int row = 0; row < 5; row++) {
+					for (int column = 0; column < 10; column++) {
+						if (!monsters[row][column].isAlive || !bullets.at(i).isAlive) {
+							continue;
+						}
+						if (Collision(bullets.at(i).LocationTopLeft, bullets.at(i).LocationBottomRight,
+							monsters[row][column].LocationTopLeft, monsters[row][column].LocationBottomRight)) {
+							monsters[row][column].isAlive = false;
+							bullets.at(i).isAlive = false;
+						}
+					}
+				}
+			}
+		}
 		
 		//Moving monsters each second
 		if (ofGetFrameNum() % frame_rate == 0) {
@@ -43,6 +72,13 @@ void ofApp::update(){
 			MonsterShoot(monsters[lowestMonster][column]);
 		}
 
+		//Ignoring bullets that go off the screen
+		for (int i = 0; i < bullets.size(); i++) {
+			if (bullets.at(i).LocationBottomRight.GetY() < 0 || bullets.at(i).LocationTopLeft.GetY() > screen_size_y) {
+				bullets.at(i).isAlive = false;
+			}
+		}
+
 		//Moving bullets
 		for (int i = 0; i < bullets.size(); i++) {
 			if (bullets.at(i).enemy) {
@@ -54,44 +90,7 @@ void ofApp::update(){
 				bullets.at(i).LocationTopLeft.MoveUp(10);
 			}
 		}
-
-		//Ignoring bullets that go off the screen
-		for (int i = 0; i < bullets.size(); i++) {
-			if (bullets.at(i).LocationBottomRight.GetY() < 0 || bullets.at(i).LocationTopLeft.GetY() > screen_size_y) {
-				bullets.at(i).isAlive = false;
-			}
-		}
-
-		//Checking for bullet collision
-		for (int i = 0; i < bullets.size(); i++) {
-			if (bullets.at(i).enemy) {
-				if (!bullets.at(i).isAlive) {
-					continue;
-				}
-				if (Collision(bullets.at(i).LocationTopLeft, bullets.at(i).LocationBottomRight,
-					player.LocationTopLeft, player.LocationBottomRight)) {
-					player.isAlive = false;
-					current_state = FINISHED;
-				}
-			}
-			else {
-				for (int row = 0; row < 5; row++) {
-					for (int column = 0; column < 10; column++) {
-						if (!monsters[row][column].isAlive || !bullets.at(i).isAlive) {
-							continue;
-						}
-						if (Collision(bullets.at(i).LocationTopLeft, bullets.at(i).LocationBottomRight,
-							monsters[row][column].LocationTopLeft, monsters[row][column].LocationBottomRight)) {
-							monsters[row][column].isAlive = false;
-							bullets.at(i).isAlive = false;
-						}
-					}
-				}
-			}
-		}
 	}
-
-	
 }
 
 //--------------------------------------------------------------
@@ -211,10 +210,10 @@ void ofApp::SpawnMonsters() {
 
 void ofApp::SpawnPlayer() {
 	player.isAlive = true;
-	player.LocationBottomRight.SetX(screen_size_x / 2 + 2);
-	player.LocationBottomRight.SetY(screen_size_y - 22);
-	player.LocationTopLeft.SetX(screen_size_x / 2 - 2);
-	player.LocationTopLeft.SetY(screen_size_y - 25);
+	player.LocationBottomRight.SetX(screen_size_x / 2 + 15);
+	player.LocationBottomRight.SetY(screen_size_y - 15);
+	player.LocationTopLeft.SetX(screen_size_x / 2 - 16);
+	player.LocationTopLeft.SetY(screen_size_y - 28);
 	DrawPlayer();
 }
 
@@ -223,6 +222,7 @@ void ofApp::DrawMonsters() {
 	for (int row = 0; row < 5; row++) {
 		for (int column = 0; column < 10; column++) {
 			if (monsters[row][column].Monster.isAllocated() && monsters[row][column].isAlive) {
+				monsters[row][column].Monster.resetAnchor();
 				monsters[row][column].Monster.draw(monsters[row][column].LocationTopLeft.GetX(), monsters[row][column].LocationTopLeft.GetY());
 			}
 		}
@@ -231,6 +231,7 @@ void ofApp::DrawMonsters() {
 
 void ofApp::DrawPlayer() {
 	if (player.Player.isAllocated() && player.isAlive) {
+		player.Player.resetAnchor();
 		player.Player.draw(player.LocationTopLeft.GetX(), player.LocationTopLeft.GetY());
 	}
 }
@@ -238,6 +239,7 @@ void ofApp::DrawPlayer() {
 void ofApp::DrawBullets() {
 	for (int i = 0; i < bullets.size(); i++) {
 		if (bullets.at(i).Bullet.isAllocated() && bullets.at(i).isAlive) {
+			bullets.at(i).Bullet.resetAnchor();
 			bullets.at(i).Bullet.draw(bullets.at(i).LocationTopLeft.GetX(), bullets.at(i).LocationTopLeft.GetY());
 		}
 	}
