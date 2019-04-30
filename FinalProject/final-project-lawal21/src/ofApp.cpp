@@ -12,7 +12,7 @@ void ofApp::setup(){
 void ofApp::update(){
 	if (current_state == IN_PROGRESS) {
 		
-		//Checking if the game has been beated
+		//Checking if the game has been beaten
 		if (MonstersDefeated() == true) {
 			current_state = FINISHED;
 			bullets.clear();
@@ -43,6 +43,17 @@ void ofApp::update(){
 							bullets.at(i).isAlive = false;
 						}
 					}
+				}
+			}
+		}
+		
+		//Checking for collision between monster and player
+		for (int row = 0; row < 5; row++) {
+			for (int column = 0; column < 10; column++) {
+				if (Collision(player.LocationTopLeft, player.LocationBottomRight,
+					monsters[row][column].LocationTopLeft, monsters[row][column].LocationBottomRight)) {
+					player.isAlive = false;
+					current_state = FINISHED;
 				}
 			}
 		}
@@ -304,11 +315,11 @@ void ofApp::MoveMonsters() {
 }
 
 void ofApp::MovePlayer(char direction) {
-	if (direction == 'A') {
+	if (direction == 'A' && player.LocationTopLeft.GetX() > 0) {
 		player.LocationBottomRight.MoveLeft(10);
 		player.LocationTopLeft.MoveLeft(10);
 	}
-	else if (direction == 'D') {
+	else if (direction == 'D' && player.LocationBottomRight.GetX() < screen_size_x) {
 		player.LocationBottomRight.MoveRight(10);
 		player.LocationTopLeft.MoveRight(10);
 	}
@@ -376,7 +387,7 @@ bool ofApp::CheckValidMonsterMove(bool right) {
 					}
 				}
 				else {
-					if (monsters[row][column].LocationBottomRight.GetX() - 1 <= initial_monster_offset_x) {
+					if (monsters[row][column].LocationTopLeft.GetX() - 1 <= initial_monster_offset_x) {
 						return false;
 					}
 				}
