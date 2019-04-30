@@ -12,7 +12,8 @@
 enum GameState {
 	IN_PROGRESS = 0,
 	PAUSED,
-	FINISHED
+	FINISHED,
+	STARTED,
 };
 
 class ofApp : public ofBaseApp{
@@ -42,7 +43,7 @@ class ofApp : public ofBaseApp{
 
 
 	//private:
-		GameState current_state = IN_PROGRESS;
+		GameState current_state = STARTED;
 		
 		//Initial spawning
 		void SpawnMonsters(); 
@@ -62,6 +63,7 @@ class ofApp : public ofBaseApp{
 			Location tlBound, Location brBound); //Checks whether an object collides with another
 
 		//Helper functions to draw each object
+		void DrawGameStarted();
 		void DrawGamePaused();
 		void DrawGameFinished();
 		void DrawMonsters();

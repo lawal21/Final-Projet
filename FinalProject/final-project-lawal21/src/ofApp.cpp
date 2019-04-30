@@ -29,7 +29,6 @@ void ofApp::update(){
 					player.LocationTopLeft, player.LocationBottomRight)) {
 					player.isAlive = false;
 					current_state = FINISHED;
-					printf("Collision\n");
 				}
 			}
 			else {
@@ -98,8 +97,11 @@ void ofApp::draw(){
 	if (current_state == PAUSED) {
 		DrawGamePaused();
 	}
-	if (current_state == FINISHED) {
+	else if (current_state == FINISHED) {
 		DrawGameFinished();
+	}
+	else if (current_state == STARTED) {
+		DrawGameStarted();
 	}
 	DrawMonsters();
 	DrawPlayer();
@@ -108,6 +110,10 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+
+	if (current_state == STARTED) {
+		current_state = IN_PROGRESS;
+	}
 
 	int upper_key = toupper(key);
 
@@ -211,7 +217,7 @@ void ofApp::SpawnMonsters() {
 void ofApp::SpawnPlayer() {
 	player.isAlive = true;
 	player.LocationBottomRight.SetX(screen_size_x / 2 + 15);
-	player.LocationBottomRight.SetY(screen_size_y - 15);
+	player.LocationBottomRight.SetY(screen_size_y - 4);
 	player.LocationTopLeft.SetX(screen_size_x / 2 - 16);
 	player.LocationTopLeft.SetY(screen_size_y - 28);
 	DrawPlayer();
@@ -243,6 +249,12 @@ void ofApp::DrawBullets() {
 			bullets.at(i).Bullet.draw(bullets.at(i).LocationTopLeft.GetX(), bullets.at(i).LocationTopLeft.GetY());
 		}
 	}
+}
+
+void ofApp::DrawGameStarted() {
+	string start_message = "PURDUE INVADERS\n\n\nCreated By Dayo Lawal\n\n\nPress Any Key to Continue";
+	ofSetColor(255, 255, 255);
+	ofDrawBitmapString(start_message, ofGetWindowWidth() / 2 - 100, ofGetWindowHeight() / 2);
 }
 
 void ofApp::DrawGamePaused() {
