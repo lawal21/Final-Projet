@@ -116,19 +116,14 @@ void ofApp::keyPressed(int key){
 			MovePlayer('D');
 		}
 	}
-	else if (upper_key == 'W' || key == OF_KEY_UP || key == OF_KEY_RETURN) {
+	else if (upper_key == 'W' || key == OF_KEY_UP || upper_key == ' ') {
 		if (player_shoot_timer >= 30) {
 			PlayerShoot();
 			player_shoot_timer = 0;
 		}
 	}
-	else if (upper_key == 'P') {
-		if (current_state == PAUSED) {
-			current_state = IN_PROGRESS;
-		}
-		else if (current_state == IN_PROGRESS) {
-			current_state == PAUSED;
-		}
+	else if (upper_key == 'P' && current_state != FINISHED) {
+		current_state = (current_state == IN_PROGRESS) ? PAUSED : IN_PROGRESS;
 	}
 	else if (upper_key == 'R') {
 		SpawnMonsters();
