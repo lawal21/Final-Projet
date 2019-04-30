@@ -14,7 +14,7 @@ void ofApp::update(){
 		
 		//Checking if the game has been beated
 		if (MonstersDefeated() == true) {
-			current_state == FINISHED;
+			current_state = FINISHED;
 			bullets.clear();
 			return;
 		}
@@ -96,6 +96,12 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+	if (current_state == PAUSED) {
+		DrawGamePaused();
+	}
+	if (current_state == FINISHED) {
+		DrawGameFinished();
+	}
 	DrawMonsters();
 	DrawPlayer();
 	DrawBullets();
@@ -122,6 +128,7 @@ void ofApp::keyPressed(int key){
 			player_shoot_timer = 0;
 		}
 	}
+	//Code borrowed from ofSnake application
 	else if (upper_key == 'P' && current_state != FINISHED) {
 		current_state = (current_state == IN_PROGRESS) ? PAUSED : IN_PROGRESS;
 	}
@@ -233,6 +240,25 @@ void ofApp::DrawBullets() {
 		if (bullets.at(i).Bullet.isAllocated() && bullets.at(i).isAlive) {
 			bullets.at(i).Bullet.draw(bullets.at(i).LocationTopLeft.GetX(), bullets.at(i).LocationTopLeft.GetY());
 		}
+	}
+}
+
+void ofApp::DrawGamePaused() {
+	string pause_message = "Game Paused. Press P to Unpause!";
+	ofSetColor(255, 255, 255);
+	ofDrawBitmapString(pause_message, ofGetWindowWidth() / 2 - 100, ofGetWindowHeight() / 2);
+}
+
+void ofApp::DrawGameFinished() {
+	if (player.isAlive) {
+		string win_message = "You Won! Press R to Play Again!";
+		ofSetColor(255, 255, 255);
+		ofDrawBitmapString(win_message, ofGetWindowWidth() / 2 - 100, ofGetWindowHeight() / 2);
+	}
+	else {
+		string lost_message = "You Lost! Press R to Try Again!";
+		ofSetColor(255, 255, 255);
+		ofDrawBitmapString(lost_message, ofGetWindowWidth() / 2 - 100, ofGetWindowHeight() / 2);
 	}
 }
 
