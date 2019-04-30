@@ -11,6 +11,14 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
 	if (current_state == IN_PROGRESS) {
+		
+		//Checking if the game has been beated
+		if (MonstersDefeated() == true) {
+			current_state == FINISHED;
+			bullets.clear();
+			return;
+		}
+		
 		//Moving monsters each second
 		if (ofGetFrameNum() % frame_rate == 0) {
 			MoveMonsters();
@@ -62,7 +70,8 @@ void ofApp::update(){
 				}
 				if (Collision(bullets.at(i).LocationTopLeft, bullets.at(i).LocationBottomRight,
 					player.LocationTopLeft, player.LocationBottomRight)) {
-
+					player.isAlive = false;
+					current_state = FINISHED;
 				}
 			}
 			else {
@@ -98,16 +107,34 @@ void ofApp::keyPressed(int key){
 	int upper_key = toupper(key);
 
 	if (upper_key == 'A' || key == OF_KEY_LEFT) {
-		MovePlayer('A');
+		if (current_state == IN_PROGRESS) {
+			MovePlayer('A');
+		}
 	}
 	else if (upper_key == 'D' || key == OF_KEY_RIGHT) {
-		MovePlayer('D');
+		if (current_state == IN_PROGRESS) {
+			MovePlayer('D');
+		}
 	}
 	else if (upper_key == 'W' || key == OF_KEY_UP || key == OF_KEY_RETURN) {
 		if (player_shoot_timer >= 30) {
 			PlayerShoot();
 			player_shoot_timer = 0;
 		}
+	}
+	else if (upper_key == 'P') {
+		if (current_state == PAUSED) {
+			current_state = IN_PROGRESS;
+		}
+		else if (current_state == IN_PROGRESS) {
+			current_state == PAUSED;
+		}
+	}
+	else if (upper_key == 'R') {
+		SpawnMonsters();
+		SpawnPlayer();
+		bullets.clear();
+		current_state = IN_PROGRESS;
 	}
 }
 
@@ -168,6 +195,7 @@ void ofApp::SpawnMonsters() {
 	for (int row = 0; row < 5; row++) {
 		for (int column = 0; column < 10; column++) {
 			monsters[row][column] = Monsters(row + 1);
+			monsters[row][column].isAlive = true;
 			float x = (40 + monster_spacing_x) * column + initial_monster_offset_x;
 			float y = (40 + monster_spacing_y) * row + initial_monster_offset_y;
 			monsters[row][column].LocationBottomRight.SetX(x + 40);
@@ -180,6 +208,7 @@ void ofApp::SpawnMonsters() {
 }
 
 void ofApp::SpawnPlayer() {
+	player.isAlive = true;
 	player.LocationBottomRight.SetX(screen_size_x / 2 + 2);
 	player.LocationBottomRight.SetY(screen_size_y - 22);
 	player.LocationTopLeft.SetX(screen_size_x / 2 - 2);
@@ -199,14 +228,14 @@ void ofApp::DrawMonsters() {
 }
 
 void ofApp::DrawPlayer() {
-	if (player.Player.isAllocated()) {
+	if (player.Player.isAllocated() && player.isAlive) {
 		player.Player.draw(player.LocationTopLeft.GetX(), player.LocationTopLeft.GetY());
 	}
 }
 
 void ofApp::DrawBullets() {
 	for (int i = 0; i < bullets.size(); i++) {
-		if (bullets.at(i).isAlive) {
+		if (bullets.at(i).Bullet.isAllocated() && bullets.at(i).isAlive) {
 			bullets.at(i).Bullet.draw(bullets.at(i).LocationTopLeft.GetX(), bullets.at(i).LocationTopLeft.GetY());
 		}
 	}
@@ -331,4 +360,15 @@ int ofApp::LowestMonster(int column) {
 		}
 	}
 	return -1;
+}
+
+bool ofApp::MonstersDefeated() {
+	for (int row = 0; row < 5; row++) {
+		for (int column = 0; column < 10; column++) {
+			if (monsters[row][column].isAlive) {
+				return false;
+			}
+		}
+	}
+	return true;
 }

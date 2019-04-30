@@ -51,6 +51,7 @@ class ofApp : public ofBaseApp{
 		void MonsterShoot(Monsters monster); //Called pierodically on the most bottom monster in a column
 		bool CheckValidMonsterMove(bool right); //Helps move monsters know when to move down
 		int LowestMonster(int column);
+		bool ofApp::MonstersDefeated();
 
 		void DrawMonsters();
 		void DrawPlayer();

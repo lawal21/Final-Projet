@@ -9,6 +9,7 @@ public:
 	ofImage Player;
 	Players();
 	~Players();
+	bool isAlive = true;
 	Location LocationTopLeft;
 	Location LocationBottomRight;
 private:
