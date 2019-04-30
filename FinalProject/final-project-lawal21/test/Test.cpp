@@ -47,9 +47,15 @@ TEST_CASE("CheckValidMonsterMoveHard") {
 }
 
 TEST_CASE("LocationInBounds") {
-	
+	Location pixel = Location(5, 5);
+	Location bound1 = Location(3, 4);
+	Location bound2 = Location(7, 9);
+	REQUIRE(Bullets::PixelWithinBounds(pixel, bound1, bound2));
 }
 
 TEST_CASE("LocationOutOfBounds") {
-
+	Location pixel = Location(10, 5);
+	Location bound1 = Location(3, 4);
+	Location bound2 = Location(7, 9);
+	REQUIRE(Bullets::PixelWithinBounds(pixel, bound1, bound2));
 }

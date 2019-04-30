@@ -24,12 +24,6 @@ Monsters::Monsters(int type)
 	Monster.resize(kMonsterWidth, kMonsterHeight);
 }
 
-Monsters::~Monsters()
-{
-	isAlive = false;
-	ofLoadImage(Monster, "Dead Monster.png");
-}
-
 Monsters& Monsters::operator=(const Monsters& other) {
 	Monster = other.Monster;
 	return *this;

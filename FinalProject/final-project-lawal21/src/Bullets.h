@@ -14,10 +14,7 @@ public:
 	Location LocationTopLeft;
 	Location LocationBottomRight;
 	bool enemy;
-
-	bool MonsterCollision(Monsters monster);
-	bool PlayerCollision(Players player);
-	bool PixelWithinBounds(Location pixel, Location tlBound, Location brBound);
+	bool isAlive = true;
 
 private:
 	int bullet_height;

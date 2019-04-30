@@ -5,6 +5,14 @@
 #include "Players.h"
 #include "Bullets.h"
 #include <vector>
+#include <random>
+
+// Enum to represent the current state of the game
+enum GameState {
+	IN_PROGRESS = 0,
+	PAUSED,
+	FINISHED
+};
 
 class ofApp : public ofBaseApp{
 
@@ -28,17 +36,21 @@ class ofApp : public ofBaseApp{
 		int screen_size_x = 1028;
 		int screen_size_y = 768;
 		int frame_rate = 30;
-		int initial_monster_offset = 20;
+		int initial_monster_offset_x = 20;
+		int initial_monster_offset_y = 50;
 
 
 	//private:
+		GameState current_state = IN_PROGRESS;
+		
 		void SpawnMonsters(); //Initial spawn of the monsters
 		void SpawnPlayer();
 		void MoveMonsters(); //Function used to move the monsters left/right and down at the edge
 		void MovePlayer(char direction); //Moves the player based on user input
 		void PlayerShoot(); //Called when the player shoots
-		void EnemyShoot(Monsters monster); //Called pierodically on the most bottom monster in a column
+		void MonsterShoot(Monsters monster); //Called pierodically on the most bottom monster in a column
 		bool CheckValidMonsterMove(bool right); //Helps move monsters know when to move down
+		int LowestMonster(int column);
 
 		void DrawMonsters();
 		void DrawPlayer();
@@ -53,4 +65,7 @@ class ofApp : public ofBaseApp{
 		Monsters monsters[5][10];
 		Players player = Players();
 		vector<Bullets> bullets;
+
+		bool PixelWithinBounds(Location pixel, Location tlBound, Location brBound);
+		bool Collision(Location LocationTopLeft, Location LocationBottomRight, Location tlBound, Location brBound);
 };

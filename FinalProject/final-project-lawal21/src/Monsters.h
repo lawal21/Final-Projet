@@ -9,7 +9,6 @@ public:
 	ofImage Monster;
 	Monsters();	
 	Monsters(int type);
-	~Monsters();
 	Location LocationTopLeft;
 	Location LocationBottomRight;
 	bool isAlive = true;
