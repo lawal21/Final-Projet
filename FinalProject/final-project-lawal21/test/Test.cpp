@@ -4,14 +4,28 @@
 
 ofApp app;
 
-TEST_CASE("SpawnMonsters") {
-	//REQUIRE();
+TEST_CASE("LocationMoveUp") {
+	Location location = Location(5, 5);
+	location.MoveUp(5);
+	REQUIRE(location.GetY() == 10);
 }
 
-TEST_CASE("MoveMonsters") {
-	app.SpawnMonsters();
+TEST_CASE("LocationMoveDown") {
+	Location location = Location(5, 5);
+	location.MoveUp(5);
+	REQUIRE(location.GetY() == 0);
+}
 
-	//REQUIRE();
+TEST_CASE("LocationMoveLeft") {
+	Location location = Location(5, 5);
+	location.MoveLeft(5);
+	REQUIRE(location.GetX() == 0);
+}
+
+TEST_CASE("LocationMoveRight") {
+	Location location = Location(5, 5);
+	location.MoveLeft(5);
+	REQUIRE(location.GetX() == 10);
 }
 
 TEST_CASE("MovePlayerLeft") {
@@ -38,12 +52,24 @@ TEST_CASE("MovePlayerRight") {
 	REQUIRE(app.player.LocationTopLeft.GetY() == 1);
 }
 
-TEST_CASE("CheckValidMonsterMoveSimple") {
-	//REQUIRE();
+TEST_CASE("CheckValidMonsterMoveRight") {
+	SpawnMonsters();
+	REQUIRE(true == = ofApp::CheckValidMonsterMove());
 }
 
-TEST_CASE("CheckValidMonsterMoveHard") {
-	//REQUIRE();
+TEST_CASE("CheckValidMonsterMoveLeft") {
+	SpawnMonsters();
+	for (int i = 0; i < 10; i++) {
+		ofApp::MoveMonsters();
+	}
+	ofApp::move_right = false;
+	REQUIRE(true == = ofApp::CheckValidMonsterMove());
+}
+
+TEST_CASE("CheckValidMonsterMoveFalse") {
+	SpawnMonsters();
+	ofApp::move_right = false;
+	REQUIRE(false == = ofApp::CheckValidMonsterMove());
 }
 
 TEST_CASE("LocationInBounds") {

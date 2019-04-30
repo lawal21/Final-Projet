@@ -152,7 +152,7 @@ void ofApp::keyPressed(int key){
 		SpawnMonsters();
 		SpawnPlayer();
 		bullets.clear();
-		current_state = IN_PROGRESS;
+		current_state = STARTED;
 	}
 }
 
@@ -263,7 +263,7 @@ void ofApp::DrawBullets() {
 }
 
 void ofApp::DrawGameStarted() {
-	string start_message = "PURDUE INVADERS\n\n\nCreated By Dayo Lawal\n\n\nPress Any Key to Continue";
+	string start_message = "Left = A or Left Arrow\nRight = D or Right Arrow\nShoot = W or Up Arrow or Space\nPause = P\nRestart = R\nExit = Esc";
 	ofSetColor(255, 255, 255);
 	ofDrawBitmapString(start_message, ofGetWindowWidth() / 2 - 100, ofGetWindowHeight() / 2);
 }
