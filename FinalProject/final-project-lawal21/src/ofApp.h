@@ -25,15 +25,6 @@ class ofApp : public ofBaseApp{
 
 		void keyPressed(int key);
 		void keyReleased(int key);
-		void mouseMoved(int x, int y);
-		void mouseDragged(int x, int y, int button);
-		void mousePressed(int x, int y, int button);
-		void mouseReleased(int x, int y, int button);
-		void mouseEntered(int x, int y);
-		void mouseExited(int x, int y);
-		void windowResized(int w, int h);
-		void dragEvent(ofDragInfo dragInfo);
-		void gotMessage(ofMessage msg);
 
 		int screen_size_x = 1028;
 		int screen_size_y = 768;
@@ -70,11 +61,14 @@ class ofApp : public ofBaseApp{
 		void DrawPlayer();
 		void DrawBullets();
 		
-		bool move_right = true;
-
+		bool monsters_move_right = true;
+		bool player_moving_right = false;
+		bool player_moving_left = false;
 		int monster_spacing_x = 20;
 		int monster_spacing_y = 8;
 		int player_shoot_timer = 30;
+		int player_move_timer = 1;
+
 
 		Monsters monsters[5][10];
 		Players player = Players();

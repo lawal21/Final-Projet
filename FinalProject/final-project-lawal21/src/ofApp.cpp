@@ -63,9 +63,25 @@ void ofApp::update(){
 			MoveMonsters();
 		}
 
+
 		//Updating the timer for which a player can shoot
 		if (ofGetFrameNum() % 1 == 0) {
 			player_shoot_timer++;
+			player_move_timer++;
+		}
+
+		//Moving player
+		if (player_moving_left) {
+			if (player_move_timer > 1) {
+				MovePlayer('A');
+				player_move_timer = 0;
+			}
+		}
+		else if (player_moving_right) {
+			if (player_move_timer > 1) {
+				MovePlayer('D');
+				player_move_timer = 0;
+			}
 		}
 
 		//Monster shooting bullets
@@ -130,12 +146,14 @@ void ofApp::keyPressed(int key){
 
 	if (upper_key == 'A' || key == OF_KEY_LEFT) {
 		if (current_state == IN_PROGRESS) {
-			MovePlayer('A');
+			player_moving_right = false;
+			player_moving_left = true;
 		}
 	}
 	else if (upper_key == 'D' || key == OF_KEY_RIGHT) {
 		if (current_state == IN_PROGRESS) {
-			MovePlayer('D');
+			player_moving_left = false;
+			player_moving_right = true;
 		}
 	}
 	else if (upper_key == 'W' || key == OF_KEY_UP || upper_key == ' ') {
@@ -158,52 +176,17 @@ void ofApp::keyPressed(int key){
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
+	
+	int upper_key = toupper(key);
 
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y ){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){ 
-
+	if (upper_key == 'A' || key == OF_KEY_LEFT) {
+		player_moving_left = false;
+		player_move_timer = 1;
+	}
+	else if (upper_key == 'D' || key == OF_KEY_RIGHT) {
+		player_moving_right = false;
+		player_move_timer = 1;
+	}
 }
 
 //-----------------------HELPER FUNCTIONS-----------------------
@@ -291,9 +274,9 @@ void ofApp::DrawGameFinished() {
 void ofApp::MoveMonsters() {
 	bool move_down = false;
 	
-	if (!CheckValidMonsterMove(move_right)) {
+	if (!CheckValidMonsterMove(monsters_move_right)) {
 		move_down = true;
-		move_right = !move_right;
+		monsters_move_right = !monsters_move_right;
 	}
 	
 	for (int row = 0; row < 5; row++) {
@@ -302,7 +285,7 @@ void ofApp::MoveMonsters() {
 				monsters[row][column].LocationBottomRight.MoveDown(40 + monster_spacing_y);
 				monsters[row][column].LocationTopLeft.MoveDown(40 + monster_spacing_y);
 			}
-			else if (move_right) {
+			else if (monsters_move_right) {
 				monsters[row][column].LocationBottomRight.MoveRight(15);
 				monsters[row][column].LocationTopLeft.MoveRight(15);
 			}
@@ -377,11 +360,11 @@ bool ofApp::Collision(Location LocationTopLeft, Location LocationBottomRight, Lo
 }
 
 //--------------------------------------------------------------
-bool ofApp::CheckValidMonsterMove(bool right) {
+bool ofApp::CheckValidMonsterMove(bool move_right) {
 	for (int row = 0; row < 5; row++) {
 		for (int column = 0; column < 10; column++) {
 			if (monsters[row][column].isAlive) {
-				if (right) {
+				if (move_right) {
 					if (monsters[row][column].LocationBottomRight.GetX() + 1 >= screen_size_x - 1 - initial_monster_offset_x) {
 						return false;
 					}

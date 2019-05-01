@@ -53,35 +53,35 @@ TEST_CASE("MovePlayerRight") {
 }
 
 TEST_CASE("CheckValidMonsterMoveRight") {
-	SpawnMonsters();
-	REQUIRE(true == = ofApp::CheckValidMonsterMove());
+	app.SpawnMonsters();
+	REQUIRE(true == app.CheckValidMonsterMove(app.monsters_move_right));
 }
 
 TEST_CASE("CheckValidMonsterMoveLeft") {
-	SpawnMonsters();
+	app.SpawnMonsters();
 	for (int i = 0; i < 10; i++) {
-		ofApp::MoveMonsters();
+		app.MoveMonsters();
 	}
-	ofApp::move_right = false;
-	REQUIRE(true == = ofApp::CheckValidMonsterMove());
+	app.monsters_move_right = false;
+	REQUIRE(true == app.CheckValidMonsterMove(app.monsters_move_right));
 }
 
 TEST_CASE("CheckValidMonsterMoveFalse") {
-	SpawnMonsters();
-	ofApp::move_right = false;
-	REQUIRE(false == = ofApp::CheckValidMonsterMove());
+	app.SpawnMonsters();
+	app.monsters_move_right = false;
+	REQUIRE(false == app.CheckValidMonsterMove(app.monsters_move_right));
 }
 
 TEST_CASE("LocationInBounds") {
 	Location pixel = Location(5, 5);
 	Location bound1 = Location(3, 4);
 	Location bound2 = Location(7, 9);
-	REQUIRE(Bullets::PixelWithinBounds(pixel, bound1, bound2));
+	REQUIRE(app.PixelWithinBounds(pixel, bound1, bound2));
 }
 
 TEST_CASE("LocationOutOfBounds") {
 	Location pixel = Location(10, 5);
 	Location bound1 = Location(3, 4);
 	Location bound2 = Location(7, 9);
-	REQUIRE(Bullets::PixelWithinBounds(pixel, bound1, bound2));
+	REQUIRE(app.PixelWithinBounds(pixel, bound1, bound2));
 }
