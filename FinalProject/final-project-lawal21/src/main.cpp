@@ -1,6 +1,6 @@
 #include "ofMain.h"
 #include "ofApp.h"
-
+/*
 //========================================================================
 int main( ){
 	ofSetupOpenGL(1028,768,OF_WINDOW);			// <-------- setup the GL context
@@ -12,3 +12,4 @@ int main( ){
 	// pass in width and height too:
 	ofRunApp(new ofApp());
 }
+*/
