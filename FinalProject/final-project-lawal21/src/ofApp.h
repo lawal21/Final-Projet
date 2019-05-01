@@ -34,7 +34,7 @@ class ofApp : public ofBaseApp{
 
 
 	//private:
-		GameState current_state = STARTED;
+		GameState current_state = STARTED; 
 		
 		//Initial spawning
 		void SpawnMonsters(); 
@@ -62,17 +62,17 @@ class ofApp : public ofBaseApp{
 		void DrawBullets();
 		void DrawPoints();
 		
-		bool monsters_move_right = true;
-		bool monster_animated = false;
-		bool player_moving_right = false;
-		bool player_moving_left = false;
+		int high_score = 0;
 		int monster_spacing_x = 20;
 		int monster_spacing_y = 8;
 		int player_shoot_timer = 30;
 		int player_move_timer = 1;
-		int high_score = 0;
+		bool player_moving_right = false;
+		bool player_moving_left = false;
+		bool monsters_move_right = true;
+		bool is_first_frame = true;
 
-
+		//Keeps track of the game objects
 		Monsters monsters[5][10];
 		Players player = Players();
 		vector<Bullets> bullets;

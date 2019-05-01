@@ -32,5 +32,6 @@ Monsters::Monsters(int type)
 
 Monsters& Monsters::operator=(const Monsters& other) {
 	Monster = other.Monster;
+	Monster1 = other.Monster1;
 	return *this;
 }

@@ -10,9 +10,11 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
+	
+	//Updating which frame the monster is being displayed
 	if (current_state != PAUSED) {
 		if (ofGetFrameNum() % (frame_rate / 2) == 0) {
-			monster_animated = !monster_animated;
+			is_first_frame = !is_first_frame;
 		}
 	}
 	
@@ -32,6 +34,7 @@ void ofApp::update(){
 
 		//Checking for bullet collision
 		for (int i = 0; i < bullets.size(); i++) {
+			//Enemy bullet collision with player
 			if (bullets.at(i).enemy) {
 				if (!bullets.at(i).isAlive) {
 					continue;
@@ -42,6 +45,7 @@ void ofApp::update(){
 					current_state = FINISHED;
 				}
 			}
+			//Player bullet collision with enemy
 			else {
 				for (int row = 0; row < 5; row++) {
 					for (int column = 0; column < 10; column++) {
@@ -76,7 +80,7 @@ void ofApp::update(){
 		}
 
 
-		//Updating the timer for which a player can shoot
+		//Updating the timer for which a player can shoot/move
 		if (ofGetFrameNum() % 1 == 0) {
 			player_shoot_timer++;
 			player_move_timer++;
@@ -102,7 +106,7 @@ void ofApp::update(){
 
 			int lowestMonster = LowestMonster(column);
 
-			while (LowestMonster(column) < 0) {
+			while (lowestMonster < 0) {
 				column = rand() % 9;
 				lowestMonster = LowestMonster(column);
 			}
@@ -112,7 +116,8 @@ void ofApp::update(){
 
 		//Ignoring bullets that go off the screen
 		for (int i = 0; i < bullets.size(); i++) {
-			if (bullets.at(i).LocationBottomRight.GetY() < 0 || bullets.at(i).LocationTopLeft.GetY() > screen_size_y) {
+			if (bullets.at(i).LocationBottomRight.GetY() < 0 
+				|| bullets.at(i).LocationTopLeft.GetY() > screen_size_y) {
 				bullets.at(i).isAlive = false;
 			}
 		}
@@ -153,6 +158,7 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
 
+	//Any key to start the game
 	if (current_state == STARTED) {
 		current_state = IN_PROGRESS;
 		return;
@@ -160,6 +166,7 @@ void ofApp::keyPressed(int key){
 
 	int upper_key = toupper(key);
 
+	//Handling player movement
 	if (upper_key == 'A' || key == OF_KEY_LEFT) {
 		if (current_state == IN_PROGRESS) {
 			player_moving_right = false;
@@ -172,16 +179,19 @@ void ofApp::keyPressed(int key){
 			player_moving_right = true;
 		}
 	}
+	//Handling player shooting
 	else if (upper_key == 'W' || key == OF_KEY_UP || upper_key == ' ') {
 		if (player_shoot_timer >= 30 && current_state == IN_PROGRESS) {
 			PlayerShoot();
 			player_shoot_timer = 0;
 		}
 	}
+	//Pausing the board
 	//Code borrowed from ofSnake application
 	else if (upper_key == 'P' && current_state != FINISHED) {
 		current_state = (current_state == IN_PROGRESS) ? PAUSED : IN_PROGRESS;
 	}
+	//Resetting the board
 	else if (upper_key == 'R') {
 		SpawnMonsters();
 		SpawnPlayer();
@@ -196,6 +206,7 @@ void ofApp::keyReleased(int key){
 	
 	int upper_key = toupper(key);
 
+	//Stopping movement
 	if (upper_key == 'A' || key == OF_KEY_LEFT) {
 		player_moving_left = false;
 		player_move_timer = 1;
@@ -237,20 +248,16 @@ void ofApp::SpawnPlayer() {
 void ofApp::DrawMonsters() {
 	for (int row = 0; row < 5; row++) {
 		for (int column = 0; column < 10; column++) {
-			/*
-			if (monsters[row][column].isAlive) {
-				monsters[row][column].Monster.draw(monsters[row][column].LocationTopLeft.GetX(), monsters[row][column].LocationTopLeft.GetY());
-			}
-			*/
-			
-			if (!monster_animated) {
+			if (is_first_frame) {
 				if (monsters[row][column].isAlive) {
-					monsters[row][column].Monster.draw(monsters[row][column].LocationTopLeft.GetX(), monsters[row][column].LocationTopLeft.GetY());
+					monsters[row][column].Monster.draw(monsters[row][column].LocationTopLeft.GetX(), 
+						monsters[row][column].LocationTopLeft.GetY());
 				}
 			}
 			else {
-				if (monsters[row][column].Monster1.isAllocated() && monsters[row][column].isAlive) {
-					monsters[row][column].Monster1.draw(monsters[row][column].LocationTopLeft.GetX(), monsters[row][column].LocationTopLeft.GetY());
+				if (monsters[row][column].isAlive) {
+					monsters[row][column].Monster1.draw(monsters[row][column].LocationTopLeft.GetX(), 
+						monsters[row][column].LocationTopLeft.GetY());
 				}
 			}
 		}
@@ -272,43 +279,47 @@ void ofApp::DrawBullets() {
 }
 
 void ofApp::DrawGameStarted() {
-	string start_message = "Left = A or Left Arrow\nRight = D or Right Arrow\nShoot = W or Up Arrow or Space\nPause = P\nRestart = R\nExit = Esc";
-	ofSetColor(255, 255, 255);
+	string start_message = "Press Any Key to Continue!\nLeft = A or Left Arrow\nRight = D or Right Arrow\nShoot = W or Up Arrow or Space\nPause = P\nRestart = R\nExit = Esc";
+	ofSetColor(0, 255, 255);
 	ofDrawBitmapString(start_message, ofGetWindowWidth() / 2 - 100, ofGetWindowHeight() / 2);
+	ofSetColor(255, 255, 255);
 }
 
 void ofApp::DrawGamePaused() {
 	string pause_message = "Game Paused. Press P to Unpause!";
-	ofSetColor(255, 255, 255);
 	ofDrawBitmapString(pause_message, ofGetWindowWidth() / 2 - 100, ofGetWindowHeight() / 2);
 }
 
 void ofApp::DrawGameFinished() {
 	if (player.isAlive) {
 		string win_message = "You Won! Press R to Play Again!";
-		ofSetColor(255, 255, 255);
+		ofSetColor(0, 255, 0);
 		ofDrawBitmapString(win_message, ofGetWindowWidth() / 2 - 100, ofGetWindowHeight() / 2);
 	}
 	else {
 		string lost_message = "You Lost! Press R to Try Again!";
-		ofSetColor(255, 255, 255);
+		ofSetColor(255, 0, 0);
 		ofDrawBitmapString(lost_message, ofGetWindowWidth() / 2 - 100, ofGetWindowHeight() / 2);
 	}
+	ofSetColor(255, 255, 255);
 }
 
 void ofApp::DrawPoints() {
 	string points_message = "Points: " + to_string(player.points);
 	string high_score_message = "High Score: " + to_string(high_score);
-	ofSetColor(255, 255, 255);
+	ofSetColor(0, 255, 255);
 	ofDrawBitmapString(points_message, 10, 10);
 	ofDrawBitmapString(high_score_message, screen_size_x - 150, 10);
+	ofSetColor(255, 255, 255);
 }
 
 //--------------------------------------------------------------
 
 void ofApp::MoveMonsters() {
+	
 	bool move_down = false;
 	
+	//Checking whether the monsters are at the end near a wall
 	if (!CheckValidMonsterMove(monsters_move_right)) {
 		move_down = true;
 		monsters_move_right = !monsters_move_right;
@@ -386,8 +397,11 @@ bool ofApp::PixelWithinBounds(Location pixel, Location tlBound, Location brBound
 }
 
 bool ofApp::Collision(Location LocationTopLeft, Location LocationBottomRight, Location tlBound, Location brBound) {
+	
 	Location LocationTopRight = Location(LocationBottomRight.GetX(), LocationTopLeft.GetY());
 	Location LocationBottomLeft = Location(LocationTopLeft.GetX(), LocationBottomRight.GetY());
+	
+	//Checking if one corner is within the bounds, meaning there is a collision
 	if (PixelWithinBounds(LocationTopLeft, tlBound, brBound) ||
 		PixelWithinBounds(LocationBottomRight, tlBound, brBound) ||
 		PixelWithinBounds(LocationTopRight, tlBound, brBound) ||
@@ -416,8 +430,6 @@ bool ofApp::CheckValidMonsterMove(bool move_right) {
 		}
 	}
 	return true;
-
-	
 }
 
 int ofApp::LowestMonster(int column) {

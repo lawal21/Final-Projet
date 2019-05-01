@@ -1,7 +1,7 @@
-#define CATCH_CONFIG_MAIN
+//#define CATCH_CONFIG_MAIN
 #include "Catch.h"
 #include "C:\Users\djlaw\source\repos\final-project-lawal21\FinalProject\final-project-lawal21\src\ofApp.h"
-
+/*
 ofApp app;
 
 TEST_CASE("LocationMoveUp") {
@@ -85,3 +85,4 @@ TEST_CASE("LocationOutOfBounds") {
 	Location bound2 = Location(7, 9);
 	REQUIRE(app.PixelWithinBounds(pixel, bound1, bound2));
 }
+*/
