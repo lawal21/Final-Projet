@@ -25,3 +25,12 @@ my goal for the next couple of days is to get the monsters to move around the sc
 able to move as well. After that, I will need to just get the shooting to work both the player and enemies,
 as well as letting the bullets kill what they hit by removing the image. With any time left, I can extend
 however I seem fit via animations, interface, and other game features. 
+
+##Week 4
+
+After a lot of tedious bug-fixing and learning how to work around with ofImage, I was able to get the
+handle my classes and draw the game, considering for collisions. I extended the game in a few ways, such
+as adding a point system and adding a start/pause/win/loss screen. The most difficult part of this was
+mostly just learning how to use ofImage and openFrameworks in general, but once I understood it, it was
+much easier to implement my code. It was really cool to be able to implement my own version of a childhood
+game that I used to play myself.

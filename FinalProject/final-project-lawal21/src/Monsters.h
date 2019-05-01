@@ -7,6 +7,7 @@ class Monsters
 {
 public:
 	ofImage Monster;
+	ofImage Monster1;
 	Monsters();	
 	Monsters(int type);
 	Location LocationTopLeft;

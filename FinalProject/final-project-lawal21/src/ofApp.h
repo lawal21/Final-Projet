@@ -63,6 +63,7 @@ class ofApp : public ofBaseApp{
 		void DrawPoints();
 		
 		bool monsters_move_right = true;
+		bool monster_animated = false;
 		bool player_moving_right = false;
 		bool player_moving_left = false;
 		int monster_spacing_x = 20;

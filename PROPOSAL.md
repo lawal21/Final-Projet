@@ -9,3 +9,11 @@ game I want to create, but I will try to get this done. I will be using the Free
 for image saving and loading. This will beuseful for loading images of the character, obstacles, background,
 etc. I don't have any expeirence with platformers but I understand how they work so I don't think it will 
 be too overwhelming.
+
+##Amendment
+
+I ended up changing from a platformer game to a space invader-like game with a player shooting the enemies
+coming in from the sky. My reasoning why I chose this game is the same as previously, but this type of
+game is easier to implement in the limited time frame given to us. Also, instead of using FreeImage, I
+ended up using ofImage which is practically the same thing as the documentation of ofImage states that
+"ofImage uses a library called "freeImage" under the hood." 

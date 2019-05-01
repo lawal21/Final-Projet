@@ -10,6 +10,12 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
+	if (current_state != PAUSED) {
+		if (ofGetFrameNum() % (frame_rate / 2) == 0) {
+			monster_animated = !monster_animated;
+		}
+	}
+	
 	if (current_state == IN_PROGRESS) {
 		
 		//Updating the high score
@@ -149,6 +155,7 @@ void ofApp::keyPressed(int key){
 
 	if (current_state == STARTED) {
 		current_state = IN_PROGRESS;
+		return;
 	}
 
 	int upper_key = toupper(key);
@@ -166,7 +173,7 @@ void ofApp::keyPressed(int key){
 		}
 	}
 	else if (upper_key == 'W' || key == OF_KEY_UP || upper_key == ' ') {
-		if (player_shoot_timer >= 30) {
+		if (player_shoot_timer >= 30 && current_state == IN_PROGRESS) {
 			PlayerShoot();
 			player_shoot_timer = 0;
 		}
@@ -230,25 +237,35 @@ void ofApp::SpawnPlayer() {
 void ofApp::DrawMonsters() {
 	for (int row = 0; row < 5; row++) {
 		for (int column = 0; column < 10; column++) {
-			if (monsters[row][column].Monster.isAllocated() && monsters[row][column].isAlive) {
-				monsters[row][column].Monster.resetAnchor();
+			/*
+			if (monsters[row][column].isAlive) {
 				monsters[row][column].Monster.draw(monsters[row][column].LocationTopLeft.GetX(), monsters[row][column].LocationTopLeft.GetY());
+			}
+			*/
+			
+			if (!monster_animated) {
+				if (monsters[row][column].isAlive) {
+					monsters[row][column].Monster.draw(monsters[row][column].LocationTopLeft.GetX(), monsters[row][column].LocationTopLeft.GetY());
+				}
+			}
+			else {
+				if (monsters[row][column].Monster1.isAllocated() && monsters[row][column].isAlive) {
+					monsters[row][column].Monster1.draw(monsters[row][column].LocationTopLeft.GetX(), monsters[row][column].LocationTopLeft.GetY());
+				}
 			}
 		}
 	}
 }
 
 void ofApp::DrawPlayer() {
-	if (player.Player.isAllocated() && player.isAlive) {
-		player.Player.resetAnchor();
+	if (player.isAlive) {
 		player.Player.draw(player.LocationTopLeft.GetX(), player.LocationTopLeft.GetY());
 	}
 }
 
 void ofApp::DrawBullets() {
 	for (int i = 0; i < bullets.size(); i++) {
-		if (bullets.at(i).Bullet.isAllocated() && bullets.at(i).isAlive) {
-			bullets.at(i).Bullet.resetAnchor();
+		if (bullets.at(i).isAlive) {
 			bullets.at(i).Bullet.draw(bullets.at(i).LocationTopLeft.GetX(), bullets.at(i).LocationTopLeft.GetY());
 		}
 	}
