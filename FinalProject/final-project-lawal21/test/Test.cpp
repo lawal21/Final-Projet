@@ -1,7 +1,7 @@
-#define CATCH_CONFIG_MAIN
+//#define CATCH_CONFIG_MAIN
 #include "Catch.h"
 #include "C:\Users\djlaw\source\repos\final-project-lawal21\FinalProject\final-project-lawal21\src\ofApp.h"
-
+/*
 TEST_CASE("LocationMoveUp") {
 	Location location = Location(5, 5);
 	location.MoveUp();
@@ -49,3 +49,4 @@ TEST_CASE("LocationMoveRightMultiple") {
 	location.MoveRight(5);
 	REQUIRE(location.GetX() == 10);
 }
+*/

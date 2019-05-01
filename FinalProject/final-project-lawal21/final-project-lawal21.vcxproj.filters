@@ -19,10 +19,16 @@
     <ClCompile Include="src\Location.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="test\Test.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
       <UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test">
+      <UniqueIdentifier>{bb883534-2092-4bcf-a5a1-596b55e901f5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -40,6 +46,9 @@
     </ClInclude>
     <ClInclude Include="src\Location.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="test\Catch.h">
+      <Filter>test</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
