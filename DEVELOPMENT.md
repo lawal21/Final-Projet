@@ -30,7 +30,7 @@ however I seem fit via animations, interface, and other game features.
 
 After a lot of tedious bug-fixing and learning how to work around with ofImage, I was able to get the
 handle my classes and draw the game, considering for collisions. I extended the game in a few ways, such
-as adding a point system and adding a start/pause/win/loss screen. The most difficult part of this was
-mostly just learning how to use ofImage and openFrameworks in general, but once I understood it, it was
-much easier to implement my code. It was really cool to be able to implement my own version of a childhood
-game that I used to play myself.
+as adding a point system, adding a start/pause/win/loss screen, adding player animation, and adding different
+difficulties. The most difficult part of this was mostly just learning how to use ofImage and 
+openFrameworks in general, but once I understood it, it was much easier to implement my code. It was really 
+cool to be able to implement my own version of a childhood game that I used to play myself.
