@@ -12,6 +12,11 @@ void ofApp::setup(){
 void ofApp::update(){
 	if (current_state == IN_PROGRESS) {
 		
+		//Updating the high score
+		if (high_score < player.points) {
+			high_score = player.points;
+		}
+		
 		//Checking if the game has been beaten
 		if (MonstersDefeated() == true) {
 			current_state = FINISHED;
@@ -41,6 +46,7 @@ void ofApp::update(){
 							monsters[row][column].LocationTopLeft, monsters[row][column].LocationBottomRight)) {
 							monsters[row][column].isAlive = false;
 							bullets.at(i).isAlive = false;
+							player.points += (5 - row) * 100;
 						}
 					}
 				}
@@ -130,6 +136,9 @@ void ofApp::draw(){
 	else if (current_state == STARTED) {
 		DrawGameStarted();
 	}
+	if (current_state != STARTED) {
+		DrawPoints();
+	}
 	DrawMonsters();
 	DrawPlayer();
 	DrawBullets();
@@ -170,6 +179,7 @@ void ofApp::keyPressed(int key){
 		SpawnMonsters();
 		SpawnPlayer();
 		bullets.clear();
+		player.points = 0;
 		current_state = STARTED;
 	}
 }
@@ -190,8 +200,6 @@ void ofApp::keyReleased(int key){
 }
 
 //-----------------------HELPER FUNCTIONS-----------------------
-
-//--------------------------------------------------------------
 void ofApp::SpawnMonsters() {
 	for (int row = 0; row < 5; row++) {
 		for (int column = 0; column < 10; column++) {
@@ -218,6 +226,7 @@ void ofApp::SpawnPlayer() {
 }
 
 //--------------------------------------------------------------
+
 void ofApp::DrawMonsters() {
 	for (int row = 0; row < 5; row++) {
 		for (int column = 0; column < 10; column++) {
@@ -270,7 +279,16 @@ void ofApp::DrawGameFinished() {
 	}
 }
 
+void ofApp::DrawPoints() {
+	string points_message = "Points: " + to_string(player.points);
+	string high_score_message = "High Score: " + to_string(high_score);
+	ofSetColor(255, 255, 255);
+	ofDrawBitmapString(points_message, 10, 10);
+	ofDrawBitmapString(high_score_message, screen_size_x - 150, 10);
+}
+
 //--------------------------------------------------------------
+
 void ofApp::MoveMonsters() {
 	bool move_down = false;
 	
@@ -309,6 +327,7 @@ void ofApp::MovePlayer(char direction) {
 }
 
 //--------------------------------------------------------------
+
 void ofApp::PlayerShoot() {
 	Bullets	bullet = Bullets(false);
 	
@@ -340,6 +359,7 @@ void ofApp::MonsterShoot(Monsters monster) {
 }
 
 //--------------------------------------------------------------
+
 bool ofApp::PixelWithinBounds(Location pixel, Location tlBound, Location brBound) {
 	if ((pixel.GetX() >= tlBound.GetX() && pixel.GetX() <= brBound.GetX()) &&
 		pixel.GetY() >= tlBound.GetY() && pixel.GetY() <= brBound.GetY()) {
@@ -360,6 +380,7 @@ bool ofApp::Collision(Location LocationTopLeft, Location LocationBottomRight, Lo
 }
 
 //--------------------------------------------------------------
+
 bool ofApp::CheckValidMonsterMove(bool move_right) {
 	for (int row = 0; row < 5; row++) {
 		for (int column = 0; column < 10; column++) {

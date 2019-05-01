@@ -60,6 +60,7 @@ class ofApp : public ofBaseApp{
 		void DrawMonsters();
 		void DrawPlayer();
 		void DrawBullets();
+		void DrawPoints();
 		
 		bool monsters_move_right = true;
 		bool player_moving_right = false;
@@ -68,6 +69,7 @@ class ofApp : public ofBaseApp{
 		int monster_spacing_y = 8;
 		int player_shoot_timer = 30;
 		int player_move_timer = 1;
+		int high_score = 0;
 
 
 		Monsters monsters[5][10];
