@@ -14,6 +14,7 @@ enum GameState {
 	PAUSED,
 	FINISHED,
 	STARTED,
+	DIFFICULTY
 };
 
 class ofApp : public ofBaseApp{
@@ -34,7 +35,7 @@ class ofApp : public ofBaseApp{
 
 
 	//private:
-		GameState current_state = STARTED; 
+		GameState current_state = DIFFICULTY; 
 		
 		//Initial spawning
 		void SpawnMonsters(); 
@@ -54,6 +55,7 @@ class ofApp : public ofBaseApp{
 			Location tlBound, Location brBound); //Checks whether an object collides with another
 
 		//Helper functions to draw each object
+		void DrawChooseDifficulty();
 		void DrawGameStarted();
 		void DrawGamePaused();
 		void DrawGameFinished();

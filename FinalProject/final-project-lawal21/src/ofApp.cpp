@@ -150,9 +150,13 @@ void ofApp::draw(){
 	else if (current_state == STARTED) {
 		DrawGameStarted();
 	}
+	else if (current_state == DIFFICULTY) {
+		DrawChooseDifficulty();
+	}
 	if (current_state != STARTED) {
 		DrawPoints();
 	}
+	
 }
 
 //--------------------------------------------------------------
@@ -165,6 +169,24 @@ void ofApp::keyPressed(int key){
 	}
 
 	int upper_key = toupper(key);
+
+	if (current_state == DIFFICULTY) {
+		if (key == '1') {
+			ofSetFrameRate(30);
+			current_state = STARTED;
+			return;
+		}
+		if (key == '2') {
+			ofSetFrameRate(60);
+			current_state = STARTED;
+			return;
+		}
+		if (key == '3') {
+			ofSetFrameRate(120);
+			current_state = STARTED;
+			return;
+		}
+	}
 
 	//Handling player movement
 	if (upper_key == 'A' || key == OF_KEY_LEFT) {
@@ -197,7 +219,7 @@ void ofApp::keyPressed(int key){
 		SpawnPlayer();
 		bullets.clear();
 		player.points = 0;
-		current_state = STARTED;
+		current_state = DIFFICULTY;
 	}
 }
 
@@ -310,6 +332,13 @@ void ofApp::DrawPoints() {
 	ofSetColor(0, 255, 255);
 	ofDrawBitmapString(points_message, 10, 10);
 	ofDrawBitmapString(high_score_message, screen_size_x - 150, 10);
+	ofSetColor(255, 255, 255);
+}
+
+void ofApp::DrawChooseDifficulty() {
+	string difficulty_message = "Choose Difficulty:\n1 = Easy\n2 = Medium\n3 = Hard";
+	ofSetColor(0, 255, 255);
+	ofDrawBitmapString(difficulty_message, ofGetWindowWidth() / 2 - 100, ofGetWindowHeight() / 2);
 	ofSetColor(255, 255, 255);
 }
 
