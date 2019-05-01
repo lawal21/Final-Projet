@@ -56,7 +56,7 @@ void ofApp::update(){
 							monsters[row][column].LocationTopLeft, monsters[row][column].LocationBottomRight)) {
 							monsters[row][column].isAlive = false;
 							bullets.at(i).isAlive = false;
-							player.points += (5 - row) * 100;
+							player.points += (5 - row) * 100 * difficulty;
 						}
 					}
 				}
@@ -176,16 +176,19 @@ void ofApp::keyPressed(int key){
 		if (key == '1') {
 			ofSetFrameRate(30);
 			current_state = STARTED;
+			difficulty = 1;
 			return;
 		}
 		else if (key == '2') {
 			ofSetFrameRate(45);
 			current_state = STARTED;
+			difficulty = 2;
 			return;
 		}
 		else if (key == '3') {
 			ofSetFrameRate(60);
 			current_state = STARTED;
+			difficulty = 3;
 			return;
 		}
 	}

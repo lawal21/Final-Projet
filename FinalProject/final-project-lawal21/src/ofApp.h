@@ -65,6 +65,7 @@ class ofApp : public ofBaseApp{
 		void DrawPoints();
 		
 		int high_score = 0;
+		int difficulty = 1;
 		int monster_spacing_x = 20;
 		int monster_spacing_y = 8;
 		int player_shoot_timer = 30;
