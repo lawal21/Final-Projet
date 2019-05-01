@@ -123,14 +123,16 @@ void ofApp::update(){
 		}
 
 		//Moving bullets
-		for (int i = 0; i < bullets.size(); i++) {
-			if (bullets.at(i).enemy) {
-				bullets.at(i).LocationBottomRight.MoveDown(10);
-				bullets.at(i).LocationTopLeft.MoveDown(10);
-			}
-			else {
-				bullets.at(i).LocationBottomRight.MoveUp(10);
-				bullets.at(i).LocationTopLeft.MoveUp(10);
+		if (ofGetFrameNum() % 1 == 0) {
+			for (int i = 0; i < bullets.size(); i++) {
+				if (bullets.at(i).enemy) {
+					bullets.at(i).LocationBottomRight.MoveDown(10);
+					bullets.at(i).LocationTopLeft.MoveDown(10);
+				}
+				else {
+					bullets.at(i).LocationBottomRight.MoveUp(10);
+					bullets.at(i).LocationTopLeft.MoveUp(10);
+				}
 			}
 		}
 	}
@@ -176,13 +178,13 @@ void ofApp::keyPressed(int key){
 			current_state = STARTED;
 			return;
 		}
-		if (key == '2') {
-			ofSetFrameRate(60);
+		else if (key == '2') {
+			ofSetFrameRate(45);
 			current_state = STARTED;
 			return;
 		}
-		if (key == '3') {
-			ofSetFrameRate(120);
+		else if (key == '3') {
+			ofSetFrameRate(60);
 			current_state = STARTED;
 			return;
 		}
@@ -437,6 +439,7 @@ bool ofApp::Collision(Location LocationTopLeft, Location LocationBottomRight, Lo
 		PixelWithinBounds(LocationBottomLeft, tlBound, brBound)) {
 		return true;
 	}
+	return false;
 }
 
 //--------------------------------------------------------------
