@@ -138,6 +138,9 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+	DrawMonsters();
+	DrawPlayer();
+	DrawBullets();
 	if (current_state == PAUSED) {
 		DrawGamePaused();
 	}
@@ -150,9 +153,6 @@ void ofApp::draw(){
 	if (current_state != STARTED) {
 		DrawPoints();
 	}
-	DrawMonsters();
-	DrawPlayer();
-	DrawBullets();
 }
 
 //--------------------------------------------------------------
@@ -168,13 +168,13 @@ void ofApp::keyPressed(int key){
 
 	//Handling player movement
 	if (upper_key == 'A' || key == OF_KEY_LEFT) {
-		if (current_state == IN_PROGRESS) {
+		if (current_state == IN_PROGRESS || PAUSED) {
 			player_moving_right = false;
 			player_moving_left = true;
 		}
 	}
 	else if (upper_key == 'D' || key == OF_KEY_RIGHT) {
-		if (current_state == IN_PROGRESS) {
+		if (current_state == IN_PROGRESS || PAUSED) {
 			player_moving_left = false;
 			player_moving_right = true;
 		}

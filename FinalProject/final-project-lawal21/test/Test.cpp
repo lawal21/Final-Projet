@@ -4,6 +4,31 @@
 /*
 ofApp app;
 
+TEST_CASE("Monsters Load") {
+	Monsters monster1 = Monster(1);
+	Monsters monster2 = Monster(2);
+	Monsters monster3 = Monster(3);
+	Monsters monster4 = Monster(4);
+	Monsters monster5 = Monster(5);
+	REQUIRE(monster1.Monster.isAllocated() == true);
+	REQUIRE(monster2.Monster.isAllocated() == true);
+	REQUIRE(monster3.Monster.isAllocated() == true);
+	REQUIRE(monster4.Monster.isAllocated() == true);
+	REQUIRE(monster5.Monster.isAllocated() == true);
+}
+
+TEST_CASE("Player Loads") {
+	Players player = Player();
+	REQUIRE(player.Player.isAllocated() == true);
+}
+
+TEST_CASE("Bullets Load") {
+	Bullets bullet1 = bullet(true);
+	Bullets bullet2 = bullet(false);
+	REQUIRE(bullet1.Bullet.isAllocated() == true);
+	REQUIRE(bullet2.Bullet.isAllocated() == true);
+}
+
 TEST_CASE("LocationMoveUp") {
 	Location location = Location(5, 5);
 	location.MoveUp(5);
