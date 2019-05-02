@@ -13,7 +13,7 @@ void ofApp::update(){
 	
 	//Updating which frame the monster is being displayed
 	if (current_state != PAUSED) {
-		if (ofGetFrameNum() % (frame_rate / 2) == 0) {
+		if (ofGetFrameNum() % (default_frame_rate / 2) == 0) {
 			is_first_frame = !is_first_frame;
 		}
 	}
@@ -75,7 +75,7 @@ void ofApp::update(){
 		}
 		
 		//Moving monsters each second
-		if (ofGetFrameNum() % frame_rate == 0) {
+		if (ofGetFrameNum() % default_frame_rate == 0) {
 			MoveMonsters();
 		}
 
@@ -101,7 +101,7 @@ void ofApp::update(){
 		}
 
 		//Monster shooting bullets
-		if (ofGetFrameNum() % (frame_rate / 2) == 0) {
+		if (ofGetFrameNum() % (default_frame_rate / 2) == 0) {
 			int column = rand() % 9;
 
 			int lowestMonster = LowestMonster(column);

@@ -27,14 +27,7 @@ class ofApp : public ofBaseApp{
 		void keyPressed(int key);
 		void keyReleased(int key);
 
-		int screen_size_x = 1028;
-		int screen_size_y = 768;
-		int frame_rate = 30;
-		int initial_monster_offset_x = 20;
-		int initial_monster_offset_y = 50;
-
-
-	//private:
+	private:
 		GameState current_state = DIFFICULTY; 
 		
 		//Initial spawning
@@ -63,11 +56,19 @@ class ofApp : public ofBaseApp{
 		void DrawPlayer();
 		void DrawBullets();
 		void DrawPoints();
-		
-		int high_score = 0;
-		int difficulty = 1;
+
+		//Private variables for the setup of the game
+		int screen_size_x = 1028;
+		int screen_size_y = 768;
+		int default_frame_rate = 30;
+		int initial_monster_offset_x = 20;
+		int initial_monster_offset_y = 50;
 		int monster_spacing_x = 20;
 		int monster_spacing_y = 8;
+		
+		//Private variables regarding other game states
+		int high_score = 0;
+		int difficulty = 1;
 		int player_shoot_timer = 30;
 		int player_move_timer = 1;
 		bool player_moving_right = false;
