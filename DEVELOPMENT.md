@@ -24,7 +24,9 @@ moves by itself in the y-axis. I'm a little bit behind, having not gotten my pro
 my goal for the next couple of days is to get the monsters to move around the screen and the player to be 
 able to move as well. After that, I will need to just get the shooting to work both the player and enemies,
 as well as letting the bullets kill what they hit by removing the image. With any time left, I can extend
-however I seem fit via animations, interface, and other game features. 
+however I seem fit via animations, interface, and other game features. I have also drawn all the sprites by
+hand for the 5 monster types, the 2 bullet types, and the player. These will be loaded in using ofImage and
+drawn upon the screen throughout the game.
 
 ##Week 4
 
